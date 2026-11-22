@@ -8,6 +8,7 @@ STAN = "https://stan.store/buildwithada"
 WORKBOOK = "https://stan.store/buildwithada/p/how-to-move-back-to-africa"
 TIKTOK = "https://www.tiktok.com/@build.withada"
 INSTA = "https://www.instagram.com/build.withada/"
+FACEBOOK = "https://www.facebook.com/buildwithada/"
 
 MARK = """<svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="6" fill="#1D2B64"/>
 <path d="M17 5 29 17 17 29 5 17Z" fill="#E3A72F"/><path d="M17 11 23 17 17 23 11 17Z" fill="#1D2B64"/>
@@ -61,7 +62,7 @@ def page(path, title, description, body, current=None, jsonld=None):
     <div>
       <p><strong>Move Back to Africa</strong><br>Honest planning for the African diaspora going home.<br>Created by Ada Eguzouwa, founder of Build With Ada.</p>
       <p><a href="{STAN}">Shop on Stan</a></p>
-      <p class="social">Follow @build.withada on <a href="{TIKTOK}">TikTok</a> and <a href="{INSTA}">Instagram</a></p>
+      <p class="social">Follow Build With Ada on <a href="{TIKTOK}">TikTok</a>, <a href="{INSTA}">Instagram</a> and <a href="{FACEBOOK}">Facebook</a></p>
     </div>
     <p class="small">The guides and workbooks on this site are general information, not legal, tax, immigration or financial advice. &copy; 2026 Move Back to Africa.</p>
   </div>
@@ -90,7 +91,7 @@ def main():
 
     person = {"@context": "https://schema.org", "@type": "Person", "name": "Ada Eguzouwa",
               "jobTitle": "Nurse-turned-agripreneur, founder of Build With Ada and Move Back to Africa",
-              "url": DOMAIN, "sameAs": [STAN, TIKTOK, INSTA],
+              "url": DOMAIN, "sameAs": [STAN, TIKTOK, INSTA, FACEBOOK],
               "description": "Nurse-turned-entrepreneur building agribusinesses in Nigeria, including Manna Farms and FarmLog, and helping the African diaspora plan their move or investment back home."}
 
     page("index.html", "Move Back to Africa | Plan your move home with a checklist, quiz and workbook",
