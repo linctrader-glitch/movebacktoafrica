@@ -5,6 +5,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(ROOT, "site")
 DOMAIN = "https://movebacktoafrica.com"
 STAN = "https://stan.store/buildwithada"
+WORKBOOK = "https://stan.store/buildwithada/p/how-to-move-back-to-africa"
 TIKTOK = "https://www.tiktok.com/@build.withada"
 INSTA = "https://www.instagram.com/build.withada/"
 
@@ -76,7 +77,7 @@ def page(path, title, description, body, current=None, jsonld=None):
 
 def read(name):
     with open(os.path.join(ROOT, "pages", name), encoding="utf-8") as f:
-        return f.read().replace("{STAN}", STAN)
+        return f.read().replace("{STAN}", WORKBOOK)
 
 
 def main():
@@ -105,7 +106,7 @@ def main():
           "name": "How to Move Back to Africa: A Relocation Planning Workbook for the African Diaspora",
           "description": "A 55-question readiness checklist and nine worksheets covering income, budget, property, family, health, schooling, papers and your first 90 days.",
           "brand": {"@type": "Brand", "name": "Move Back to Africa"},
-          "offers": {"@type": "Offer", "price": "37.00", "priceCurrency": "USD", "url": STAN,
+          "offers": {"@type": "Offer", "price": "37.00", "priceCurrency": "USD", "url": WORKBOOK,
                      "availability": "https://schema.org/InStock"}})
     page("quiz.html", "Are You Ready to Move Back to Africa? Free Readiness Quiz",
          "Answer 11 quick questions and get your move-back readiness score, plus the areas to fix first.",

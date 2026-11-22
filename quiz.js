@@ -1,5 +1,5 @@
 (function () {
-  var STAN = 'https://stan.store/buildwithada';
+  var STAN = 'https://stan.store/buildwithada/p/how-to-move-back-to-africa';
   var QUESTIONS = [
     { area: 'Mindset', text: "I don't see moving back as going backwards or as failure." },
     { area: 'Your why', text: 'I can say in one sentence why I\'m moving back, beyond "I\'m tired of it here".' },
