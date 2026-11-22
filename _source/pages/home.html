@@ -1,0 +1,110 @@
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1>Move back home with a plan, not a prayer.</h1>
+      <p class="lead">I'm Ada, a nurse building businesses in Nigeria. I help the African diaspora plan their move or investment back home, so they keep their savings and their peace.</p>
+      <div class="actions">
+        <a class="btn" href="quiz.html">Take the free readiness quiz</a>
+        <a class="btn secondary" href="guides/moving-back-to-africa-checklist.html">Read the checklist</a>
+      </div>
+    </div>
+    <figure class="photo hero-photo">
+      <img src="img/bridge-arms.jpg" alt="Ada Eguzouwa smiling on a wooden footbridge surrounded by tropical greenery and palm trees" width="900" height="1200">
+      <div class="weave" aria-hidden="true"></div>
+    </figure>
+  </div>
+</section>
+
+
+<section class="quick">
+  <div class="wrap split">
+    <aside class="check-card" aria-labelledby="quick-check">
+            <div class="inner">
+        <h2 id="quick-check">Quick check. Be honest.</h2>
+        <p>Tick what is true for you today, not what you plan to do.</p>
+        <label><input type="checkbox" class="qc"> I have income that keeps coming after I move.</label>
+        <label><input type="checkbox" class="qc"> I've checked my land title at the registry myself.</label>
+        <label><input type="checkbox" class="qc"> I have 12 months of living costs saved.</label>
+        <label><input type="checkbox" class="qc"> I know who to call when the power goes out.</label>
+        <p class="tally" id="tally" aria-live="polite"></p>
+        <a class="btn gold" href="quiz.html">Get your full score</a>
+      </div>
+    </aside>
+    <div class="prose">
+      <h2>Not sure where you stand?</h2>
+      <p>Most people who move back on emotion don't fail because they're not smart. They fail because nobody asked them the hard questions first.</p>
+      <p>Start with these four. The full quiz takes about two minutes and shows you which areas to fix before you book a one-way ticket.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <h2>Why people's moves back home go wrong</h2>
+    <p class="prose">I've watched too many people move home on emotion and lose their savings, their peace, or both. These are the three problems I hear about most.</p>
+    <div class="three">
+      <div>
+        <h3>No income plan</h3>
+        <p>Savings run out faster than anyone expects. Without income that keeps coming, many returnees end up moving abroad again.</p>
+      </div>
+      <div>
+        <h3>Trusting the wrong people</h3>
+        <p>The biggest losses rarely come from strangers. They come from relatives, caretakers, hired professionals and even other returnees.</p>
+      </div>
+      <div>
+        <h3>The first 30 days</h3>
+        <p>Power cuts, rising rents, slow paperwork and feeling like an outsider. Social media makes moving back look easier than it is.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap split">
+    <div>
+      <h2>Treat your move like a business project</h2>
+      <p>Plan it, budget it, test it, and then do it. That is how I build businesses in Nigeria from abroad, and it is how you should plan your move.</p>
+      <p>Start with the free guide. When you're ready to plan properly, the workbook walks you through every part of it.</p>
+      <div class="actions"><a class="btn" href="guides/moving-back-to-africa-checklist.html">Read the 2026 checklist</a></div>
+    </div>
+    <div>
+      <div class="product mini">
+        <img class="cover-img" src="img/cover-move-back.jpg" alt="Cover of How to Move Back to Africa, a relocation planning workbook by Build With Ada" width="800" height="800">
+        <div>
+          <p class="price">$37</p>
+          <p><strong>How to Move Back to Africa</strong>, a relocation planning workbook for the African diaspora. A 55-question readiness check and nine worksheets.</p>
+          <a class="btn gold" href="{STAN}">Get the workbook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band-indigo">
+  <div class="wrap split center">
+    <figure class="photo">
+      <img src="img/jetty.jpg" alt="Ada walking along a jetty beside a wide river, with boats moored and forest on the far bank" width="1170" height="1172" loading="lazy">
+    </figure>
+    <div class="prose">
+      <h2>Going home this December?</h2>
+      <p>Make the trip count. Check today's rents and prices, visit your land or project in person, and meet a lawyer, a doctor and a landlord you can trust. The workbook's visit plan turns your holiday into a scouting trip.</p>
+      <p><a href="shop.html">See what's inside the workbook</a></p>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var boxes = document.querySelectorAll('.qc');
+  var tally = document.getElementById('tally');
+  function update() {
+    var n = 0;
+    boxes.forEach(function (b) { if (b.checked) n++; });
+    if (n === 0) { tally.textContent = ''; return; }
+    tally.textContent = n === 4
+      ? 'All four. Now try the other seven areas in the full quiz.'
+      : n + ' of 4. The full quiz shows you what to fix first.';
+  }
+  boxes.forEach(function (b) { b.addEventListener('change', update); });
+})();
+</script>
