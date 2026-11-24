@@ -256,17 +256,36 @@ def main():
                "You can visit many African countries easily, but living there long-term needs a residency permit, work permit, Right of Abode or citizenship, depending on the country. Check the immigration rules of the specific country before you plan your move."),
           ], "img/yaounde-monument.jpg")
 
+    guide("moving-back-to-africa-questions-2026.html",
+          "Moving Back to Africa in 2026: Your Most-Asked Questions, Answered",
+          "Straight answers to the 12 questions people ask most about moving back to Africa in 2026: visas, Ghana citizenship, cost, banking, health care, safety and income.",
+          "article-faq-2026.html", [
+              ("Can I just move to Africa?",
+               "You can visit most African countries easily, but living there long-term needs a legal right to stay: citizenship, a residence or work permit, or a diaspora status such as Ghana's Right of Abode. If you or a parent were born in the country, you may already be a citizen."),
+              ("Do Africans need a visa to visit Ghana or Kenya in 2026?",
+               "Ghana started a free visa regime for all African passport holders on 25 May 2026; you still apply online for an e-visa but pay no fee. Kenya dropped its eTA for most African countries in July 2025, allowing stays of up to two months, except for Somalia and Libya. These rules are for visits, not for living or working."),
+              ("Can I still get Ghanaian citizenship in 2026?",
+               "Ghana paused citizenship applications from the historic diaspora in February 2026 to simplify the process and gave no date for reopening. As of November 2026 we found no official notice that applications had resumed. The separate Right of Abode status lets people of African descent live and work in Ghana permanently."),
+              ("Which African countries offer citizenship to the diaspora?",
+               "Ghana, Sierra Leone, Benin and Guinea-Bissau have special citizenship routes for the historic African diaspora. About 1,213 people received citizenship through them between 2016 and 2026, most in Ghana."),
+              ("How can Nigerians abroad open a Nigerian bank account?",
+               "Since May 2025, the Non-Resident Bank Verification Number (NRBVN) lets Nigerians abroad, and people who are Nigerian by descent, get a BVN online and open naira and domiciliary accounts with partner banks without travelling home."),
+              ("Is it cheaper to live in Nigeria now?",
+               "Not necessarily. Food prices and rents have risen sharply, and the naira strengthened by about 10 percent against the dollar between June 2025 and June 2026, so foreign currency buys fewer naira than a year earlier. Budget with today's prices and exchange rate."),
+          ], "img/market-aerial.jpg")
+
     with open(os.path.join(OUT, "robots.txt"), "w") as f:
         f.write(f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n")
     urls = ["", "about.html", "shop.html", "quiz.html", "guides/index.html",
             "guides/moving-back-to-africa-checklist.html",
             "guides/how-much-does-it-cost-to-move-back-to-africa.html",
             "guides/are-you-ready-to-move-back-to-africa.html",
-            "guides/where-should-i-move-in-africa.html"]
+            "guides/where-should-i-move-in-africa.html",
+            "guides/moving-back-to-africa-questions-2026.html"]
     with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
         f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
         for u in urls:
-            mod = "2026-11-24" if u in ("guides/index.html",) or u.startswith(("guides/how", "guides/are", "guides/where")) else "2026-11-22"
+            mod = "2026-11-24" if u in ("guides/index.html",) or u.startswith(("guides/how", "guides/are", "guides/where", "guides/moving-back-to-africa-questions")) else "2026-11-22"
             f.write(f"  <url><loc>{DOMAIN}/{u}</loc><lastmod>{mod}</lastmod></url>\n")
         f.write("</urlset>\n")
     with open(os.path.join(OUT, "CNAME"), "w") as f:
