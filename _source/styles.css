@@ -239,3 +239,5 @@ section { padding: 72px 0; }
   .guide-list li.thumb img { width: 96px; height: 96px; }
 }
 .prose .guide-list { padding-left: 0; }
+.prose figure.inline.portrait { max-width: 380px; }
+.prose figure.inline.portrait img { aspect-ratio: 2 / 3; }

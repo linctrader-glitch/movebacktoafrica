@@ -208,7 +208,7 @@ def main():
                "As of November 2026, Ghana, Sierra Leone, Benin and Guinea-Bissau have special citizenship or return programmes for people of African descent. Ghana also offers the Right of Abode residency status. Ghana paused new diaspora citizenship applications in February 2026 to overhaul the process. Rules change often, so check official government sources before you apply."),
               ("Can an American just move to Africa?",
                "You can visit many African countries easily, but living there long-term needs a residency permit, work permit, Right of Abode or citizenship, depending on the country. Check the immigration rules of the specific country before you plan your move."),
-          ], "img/jetty.jpg")
+          ], "img/yaounde-monument.jpg")
 
     with open(os.path.join(OUT, "robots.txt"), "w") as f:
         f.write(f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n")
