@@ -206,7 +206,7 @@ def main():
                "Only you can decide, but decide with a plan rather than emotion alone. Answer the 10 questions in this guide honestly and take the free readiness quiz to see which areas need work first."),
               ("How long should I prepare before moving back?",
                "Most people need 12 to 24 months to build income, save a safety net, sort documents and do a trial stay. Moving faster is possible, but the gaps usually show up as stress and lost money later."),
-          ], "img/beach-horse.jpg")
+          ], "img/couple-moving-boxes.jpg")
     guide("where-should-i-move-in-africa.html",
           "Where Should I Move in Africa? How to Choose Your Country",
           "How to choose where to live in Africa: 8 things to compare, countries with diaspora citizenship and residency routes, and how to test your choice.",
