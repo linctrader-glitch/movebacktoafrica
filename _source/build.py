@@ -274,6 +274,20 @@ def main():
                "Not necessarily. Food prices and rents have risen sharply, and the naira strengthened by about 10 percent against the dollar between June 2025 and June 2026, so foreign currency buys fewer naira than a year earlier. Budget with today's prices and exchange rate."),
           ], "img/market-aerial.jpg")
 
+    guide("trust-family-with-money-back-home.html",
+          "Should You Trust Family to Manage Your Money Back Home?",
+          "Investing back home from abroad? Why family money arrangements go wrong, 7 rules to protect your money, and how to say no without breaking the family.",
+          "article-family-money.html", [
+              ("Should I trust family to manage my money back home?",
+               "Trust your family with your love, but don't give anyone, family or not, unchecked control of your money. Give relatives a role such as being your eyes on the ground, and keep payments in a system you control: pay suppliers directly, pay in verified stages and keep documents in your name."),
+              ("Why do diaspora projects managed by family fail?",
+               "Usually because of the arrangement, not because relatives are bad people: nothing is written down, emergencies put pressure on the money, the relative may not be experienced at managing large sums, and photos are accepted as proof without independent checks."),
+              ("How can I invest back home safely from abroad?",
+               "Pay suppliers directly from your own account, pay in stages and verify each stage with receipts and a live video call you control, keep land titles and accounts in your name, use at least one independent professional, and visit regularly."),
+              ("How do I tell my family I don't want them handling my money?",
+               "Make the system the reason, not the person. Explain that you run every project the same way, paying suppliers directly and keeping paperwork in your name, and invite them to be your eyes on the ground. Agree the rules before any money moves."),
+          ], "img/ada-laptop.jpg")
+
     with open(os.path.join(OUT, "robots.txt"), "w") as f:
         f.write(f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n")
     urls = ["", "about.html", "shop.html", "quiz.html", "guides/index.html",
@@ -281,11 +295,12 @@ def main():
             "guides/how-much-does-it-cost-to-move-back-to-africa.html",
             "guides/are-you-ready-to-move-back-to-africa.html",
             "guides/where-should-i-move-in-africa.html",
-            "guides/moving-back-to-africa-questions-2026.html"]
+            "guides/moving-back-to-africa-questions-2026.html",
+            "guides/trust-family-with-money-back-home.html"]
     with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
         f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
         for u in urls:
-            mod = "2026-11-24" if u in ("guides/index.html",) or u.startswith(("guides/how", "guides/are", "guides/where", "guides/moving-back-to-africa-questions")) else "2026-11-22"
+            mod = "2026-11-24" if u in ("guides/index.html",) or u.startswith(("guides/how", "guides/are", "guides/where", "guides/moving-back-to-africa-questions", "guides/trust-family")) else "2026-11-22"
             f.write(f"  <url><loc>{DOMAIN}/{u}</loc><lastmod>{mod}</lastmod></url>\n")
         f.write("</urlset>\n")
     with open(os.path.join(OUT, "CNAME"), "w") as f:
