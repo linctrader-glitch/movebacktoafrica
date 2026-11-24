@@ -1,5 +1,6 @@
 """Builds the Build With Ada static site into ./site from the page bodies below."""
-import json, os, shutil
+import json, os, re, shutil
+from PIL import Image
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(ROOT, "site")
@@ -34,6 +35,41 @@ src="https://www.facebook.com/tr?id=1704784206779963&ev=PageView&noscript=1"
 
 NAV = [("index.html", "Home"), ("guides/index.html", "Guides"), ("quiz.html", "Readiness quiz"),
        ("shop.html", "Shop"), ("about.html", "About Ada")]
+
+
+def responsive(html):
+    """Swap each img/*.jpg|png for WebP versions at 600px and 1100px wide, with lazy loading."""
+    def rep(m):
+        tag, pre, name, ext = m.group(0), m.group(1), m.group(2), m.group(3)
+        src = os.path.join(ROOT, "img", f"{name}.{ext}")
+        if not os.path.exists(src):
+            return tag
+        im = Image.open(src)
+        if im.mode not in ("RGB", "RGBA"):
+            im = im.convert("RGB")
+        variants = []
+        done = set()
+        for w in (300, 600, 1000):
+            w = min(w, im.width)
+            if w in done:
+                continue
+            done.add(w)
+            out = os.path.join(OUT, "img", f"{name}-{w}.webp")
+            if not os.path.exists(out):
+                v = im.copy()
+                if v.width > w:
+                    v = v.resize((w, round(im.height * w / im.width)), Image.LANCZOS)
+                v.save(out, "WEBP", quality=66, method=6)
+            variants.append(f'{pre}img/{name}-{w}.webp {w}w')
+        small = re.search(r'width="(\d+)"', tag) and int(re.search(r'width="(\d+)"', tag).group(1)) <= 150
+        sizes = "150px" if small else "(max-width: 860px) 92vw, 560px"
+        fallback = variants[0 if small else min(1, len(variants) - 1)].split()[0]
+        new = tag.replace(f'src="{pre}img/{name}.{ext}"',
+                          f'src="{fallback}" srcset="{", ".join(variants)}" sizes="{sizes}" decoding="async"')
+        if "fetchpriority" not in new and "loading=" not in new:
+            new = new.replace("<img ", '<img loading="lazy" ', 1)
+        return new
+    return re.sub(r'<img [^>]*?src="((?:\.\./)*)img/([a-z0-9-]+)\.(jpg|png)"[^>]*>', rep, html)
 
 
 def page(path, title, description, body, current=None, jsonld=None, image="img/cover-move-back.jpg"):
@@ -96,6 +132,7 @@ def page(path, title, description, body, current=None, jsonld=None, image="img/c
 </body>
 </html>
 """
+    html = responsive(html)
     dest = os.path.join(OUT, path)
     os.makedirs(os.path.dirname(dest), exist_ok=True)
     with open(dest, "w", encoding="utf-8") as f:
