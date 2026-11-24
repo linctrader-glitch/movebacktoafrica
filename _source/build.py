@@ -63,6 +63,11 @@ def page(path, title, description, body, current=None, jsonld=None, image="img/c
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap" rel="stylesheet">
+<link rel="icon" href="{pre}favicon.ico" sizes="any">
+<link rel="icon" href="{pre}favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{pre}apple-touch-icon.png">
+<link rel="manifest" href="{pre}site.webmanifest">
+<meta name="theme-color" content="#1D2B64">
 <link rel="stylesheet" href="{pre}styles.css">
 {ld}
 {PIXEL}
@@ -108,6 +113,10 @@ def main():
     os.makedirs(OUT)
     shutil.copy(os.path.join(ROOT, "styles.css"), OUT)
     shutil.copy(os.path.join(ROOT, "quiz.js"), OUT)
+    for f in ("favicon.svg", "favicon.ico", "apple-touch-icon.png", "icon-192.png", "icon-512.png"):
+        shutil.copy(os.path.join(ROOT, f), OUT)
+    with open(os.path.join(OUT, "site.webmanifest"), "w") as f:
+        f.write(json.dumps({"name": "Move Back to Africa", "short_name": "Move Back", "icons": [{"src": "/icon-192.png", "sizes": "192x192", "type": "image/png"}, {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png"}], "theme_color": "#1D2B64", "background_color": "#ffffff", "display": "standalone"}))
     shutil.copytree(os.path.join(ROOT, "img"), os.path.join(OUT, "img"))
 
     person = {"@context": "https://schema.org", "@type": "Person", "name": "Ada Eguzouwa",
