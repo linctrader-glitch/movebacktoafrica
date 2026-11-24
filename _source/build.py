@@ -36,7 +36,7 @@ NAV = [("index.html", "Home"), ("guides/index.html", "Guides"), ("quiz.html", "R
        ("shop.html", "Shop"), ("about.html", "About Ada")]
 
 
-def page(path, title, description, body, current=None, jsonld=None):
+def page(path, title, description, body, current=None, jsonld=None, image="img/cover-move-back.jpg"):
     depth = path.count("/")
     pre = "../" * depth
     nav = "".join(
@@ -58,6 +58,8 @@ def page(path, title, description, body, current=None, jsonld=None):
 <meta property="og:description" content="{description}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{url}">
+<meta property="og:image" content="{DOMAIN}/{image}">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap" rel="stylesheet">
@@ -161,7 +163,7 @@ def main():
          "An honest checklist for the African diaspora moving back home: income, budget, land and trust, family, health, schooling, papers and your first 30 days.",
          read("article-checklist.html").replace("{FAQ}", faq_html), "guides/index.html", article)
 
-    def guide(slug, headline, description, template, faq, date="2026-11-24"):
+    def guide(slug, headline, description, template, faq, image, date="2026-11-24"):
         ld = {"@context": "https://schema.org", "@graph": [
             {"@type": "Article", "headline": headline,
              "author": {"@type": "Person", "name": "Ada Eguzouwa"}, "datePublished": date,
@@ -169,7 +171,8 @@ def main():
             {"@type": "FAQPage", "mainEntity": [
                 {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faq]}]}
         html = read(template).replace("{FAQ}", "".join(f"<dt>{q}</dt><dd>{a}</dd>" for q, a in faq))
-        page("guides/" + slug, headline, description, html, "guides/index.html", ld)
+        ld["@graph"][0]["image"] = DOMAIN + "/" + image
+        page("guides/" + slug, headline, description, html, "guides/index.html", ld, image)
 
     guide("how-much-does-it-cost-to-move-back-to-africa.html",
           "How Much Does It Really Cost to Move Back to Africa?",
@@ -183,7 +186,7 @@ def main():
                "It is very risky. Without savings or income that continues after you move, any emergency can force you back abroad. Build an income that works from Africa and a 12-month safety net first."),
               ("Should I ship my things or buy them there?",
                "Get shipping quotes that include customs duty and clearing fees, then compare them with local prices. Many returnees find it is cheaper to ship only what matters most and buy the rest locally."),
-          ])
+          ], "img/bridge-lean.jpg")
     guide("are-you-ready-to-move-back-to-africa.html",
           "Are You Ready to Move Back to Africa? 10 Questions to Ask Yourself First",
           "Wanting to move back home is not the same as being ready. Answer these 10 honest questions before you book a one-way ticket to Africa.",
@@ -194,7 +197,7 @@ def main():
                "Only you can decide, but decide with a plan rather than emotion alone. Answer the 10 questions in this guide honestly and take the free readiness quiz to see which areas need work first."),
               ("How long should I prepare before moving back?",
                "Most people need 12 to 24 months to build income, save a safety net, sort documents and do a trial stay. Moving faster is possible, but the gaps usually show up as stress and lost money later."),
-          ])
+          ], "img/bridge-arms.jpg")
     guide("where-should-i-move-in-africa.html",
           "Where Should I Move in Africa? How to Choose Your Country",
           "How to choose where to live in Africa: 8 things to compare, countries with diaspora citizenship and residency routes, and how to test your choice.",
@@ -205,7 +208,7 @@ def main():
                "As of November 2026, Ghana, Sierra Leone, Benin and Guinea-Bissau have special citizenship or return programmes for people of African descent. Ghana also offers the Right of Abode residency status. Ghana paused new diaspora citizenship applications in February 2026 to overhaul the process. Rules change often, so check official government sources before you apply."),
               ("Can an American just move to Africa?",
                "You can visit many African countries easily, but living there long-term needs a residency permit, work permit, Right of Abode or citizenship, depending on the country. Check the immigration rules of the specific country before you plan your move."),
-          ])
+          ], "img/jetty.jpg")
 
     with open(os.path.join(OUT, "robots.txt"), "w") as f:
         f.write(f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n")
