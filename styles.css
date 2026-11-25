@@ -258,3 +258,5 @@ section { padding: 72px 0; }
 .waitlist-card .wl-btn:hover { background: #FFE066; }
 .waitlist-card .wl-soon { opacity: .95; cursor: default; }
 .waitlist-card .wl-small { font-size: .85rem; color: #FFE9DF; margin: .9em 0 0; }
+
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }

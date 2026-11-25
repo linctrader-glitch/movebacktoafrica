@@ -1,0 +1,173 @@
+<style>
+.col-hero { padding: 48px 0 8px; }
+.col-hero h1 { max-width: 20ch; }
+.col-tool { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-m); padding: clamp(18px, 3vw, 32px); box-shadow: 0 18px 40px -28px rgba(18, 27, 69, .45); }
+.col-lab { font-weight: 700; font-size: .95rem; color: var(--muted); margin: 0 0 8px; }
+.col-countries { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 20px; }
+.col-ctry b { display: block; font-size: .85rem; color: var(--muted); margin-bottom: 6px; }
+.col-chip { display: block; width: 100%; min-height: 48px; margin-bottom: 6px; border-radius: var(--radius-s); border: 1px solid var(--line); background: var(--mist); color: var(--ink); font: 700 1rem var(--body); text-align: left; padding: 8px 12px; cursor: pointer; position: relative; }
+.col-chip small { display: block; font-weight: 400; font-size: .8rem; color: var(--muted); }
+.col-chip[aria-pressed="true"] { background: var(--indigo); border-color: var(--indigo); color: #fff; }
+.col-chip[aria-pressed="true"] small { color: var(--gold-soft); }
+.col-chip.locked { background: var(--paper); color: var(--muted); padding-right: 30px; }
+.col-chip.locked::after { content: ""; position: absolute; right: 12px; top: 50%; width: 10px; height: 10px; margin-top: -5px; background: var(--gold); transform: rotate(45deg); }
+.col-row { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-end; margin-bottom: 22px; }
+.col-seg { display: flex; border: 1px solid var(--line); border-radius: 999px; padding: 4px; background: var(--mist); }
+.col-seg button { min-height: 42px; padding: 0 16px; border: 0; border-radius: 999px; background: none; color: var(--ink); font: 700 1rem var(--body); cursor: pointer; }
+.col-seg button[aria-pressed="true"] { background: var(--gold); color: var(--indigo-deep); }
+.col-step { display: flex; align-items: center; gap: 8px; }
+.col-step button { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--mist); color: var(--ink); font-size: 1.3rem; cursor: pointer; }
+.col-step output { min-width: 28px; text-align: center; font-weight: 700; font-size: 1.2rem; }
+.col-res { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(20px, 4vw, 48px); border-top: 1px solid var(--line); padding-top: 22px; }
+.col-big { font-family: var(--display); font-weight: 800; font-size: clamp(3.2rem, 9vw, 5.4rem); line-height: 1; color: var(--indigo-deep); white-space: nowrap; }
+.col-big small { font-family: var(--body); font-weight: 400; font-size: 1.1rem; color: var(--muted); }
+.col-sub { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 10px; color: var(--muted); }
+.col-sub b { color: var(--ink); white-space: nowrap; }
+.col-bars { display: grid; gap: 10px; }
+.col-bar { display: grid; grid-template-columns: minmax(0, 9.5em) minmax(0, 1fr) 4.6em; gap: 10px; align-items: center; font-size: .98rem; }
+.col-bar i { display: block; height: 14px; border-radius: 7px; background: var(--indigo); transition: width .4s; }
+.col-bar i.rent { background: var(--gold); }
+.col-bar span:last-child { text-align: right; font-weight: 700; white-space: nowrap; }
+.col-vs { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; margin-top: 14px; }
+.col-card { border-radius: var(--radius-m); padding: 18px; background: var(--mist); }
+.col-card.on { outline: 2px solid var(--gold); }
+.col-card h3 { margin: 0 0 2px; font-size: 1.1rem; }
+.col-card .n { font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 5vw, 2.6rem); color: var(--indigo-deep); }
+.col-save { margin-top: 14px; padding: 16px 20px; border-radius: var(--radius-m); background: var(--indigo); color: #fff; }
+.col-save b { color: var(--gold); }
+.col-rank { display: grid; gap: 8px; margin-top: 12px; }
+.col-rk { display: grid; grid-template-columns: minmax(0, 9em) minmax(0, 1fr) 5em; gap: 10px; align-items: center; min-height: 34px; border: 0; background: none; color: var(--ink); font: 1rem var(--body); text-align: left; padding: 0; cursor: pointer; }
+.col-rk i { display: block; height: 20px; border-radius: 5px; background: var(--indigo); }
+.col-rk.calm i { background: var(--leaf); }
+.col-rk.locked { color: var(--muted); }
+.col-rk.locked i { opacity: .25; }
+.col-rk.sel { font-weight: 700; }
+.col-rk span:last-child { text-align: right; white-space: nowrap; }
+.col-key { display: flex; gap: 18px; font-size: .9rem; color: var(--muted); margin-top: 10px; }
+.col-key i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.col-two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(16px, 3vw, 40px); }
+.col-cheque .n { font-family: var(--display); font-weight: 800; font-size: clamp(2.6rem, 7vw, 3.8rem); color: var(--indigo-deep); }
+.col-rules { display: grid; gap: 10px; }
+.col-rules details { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-s); padding: 0 16px; }
+.col-rules summary { min-height: 50px; display: flex; align-items: center; font-weight: 700; cursor: pointer; }
+.col-band { background: var(--mist); }
+.col-gate { margin-top: 18px; padding: clamp(18px, 3vw, 28px); border-radius: var(--radius-m); background: var(--indigo-deep); color: #fff; }
+.col-gate h2 { color: #fff; margin-bottom: 6px; }
+.col-gate p { color: var(--gold-soft); }
+.col-gate form { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) auto; gap: 10px; margin-top: 14px; }
+.col-gate input[type=text], .col-gate input[type=email] { min-height: 50px; border-radius: var(--radius-s); border: 1px solid #33407A; background: #fff; color: var(--ink); font: 1rem var(--body); padding: 0 14px; }
+.col-gate .consent { grid-column: 1 / -1; display: flex; gap: 10px; align-items: flex-start; font-size: .9rem; color: var(--gold-soft); }
+.col-gate .consent input { width: 20px; height: 20px; margin-top: 2px; flex: none; }
+.col-gate .msg { grid-column: 1 / -1; min-height: 1.4em; margin: 0; font-size: .95rem; }
+.col-gate .btn { min-height: 50px; }
+.col-fine { font-size: .9rem; color: var(--muted); }
+@media (max-width: 860px) {
+  .col-countries { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .col-res, .col-two { grid-template-columns: minmax(0, 1fr); }
+  .col-gate form { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 420px) {
+  .col-bar { grid-template-columns: minmax(0, 7.5em) minmax(0, 1fr) 4.2em; font-size: .92rem; }
+  .col-vs { grid-template-columns: minmax(0, 1fr); }
+  .col-rk { grid-template-columns: minmax(0, 7.5em) minmax(0, 1fr) 4.6em; font-size: .95rem; }
+}
+@media (prefers-reduced-motion: reduce) { .col-bar i { transition: none; } }
+</style>
+
+<section class="col-hero">
+  <div class="wrap">
+    <h1>The Cost of Living in Africa: free calculator</h1>
+    <p class="lead" style="max-width: 60ch;">Real monthly costs in 16 cities across 8 countries: each capital, and the calmer city beside it. For the diaspora coming home, and for anyone coming to visit, retire or work. Researched November 2026, in US dollars.</p>
+  </div>
+</section>
+
+<section style="padding-top: 24px;">
+  <div class="wrap">
+    <div class="col-tool">
+      <p class="col-lab">1. Pick a city</p>
+      <div class="col-countries" id="col-cities"></div>
+      <div class="col-row">
+        <div><p class="col-lab">2. Your lifestyle</p><div class="col-seg" id="col-seg"><button type="button" data-l="0">Careful</button><button type="button" data-l="1">Comfortable</button><button type="button" data-l="2">Generous</button></div></div>
+        <div><p class="col-lab">3. Children in school</p><div class="col-step"><button type="button" id="col-minus" aria-label="Fewer children">&minus;</button><output id="col-kids">0</output><button type="button" id="col-plus" aria-label="More children">+</button></div></div>
+      </div>
+      <div class="col-res">
+        <div>
+          <p class="col-lab" id="col-where"></p>
+          <div class="col-big" id="col-total"></div>
+          <div class="col-sub"><span>Per year <b id="col-year"></b></span><span>Range <b id="col-range"></b></span></div>
+          <p class="col-fine" id="col-blurb" style="margin-top: 14px;"></p>
+        </div>
+        <div class="col-bars" id="col-bars"></div>
+      </div>
+
+      <div class="col-gate hidden" id="col-gate">
+        <h2>Unlock all 16 cities, free</h2>
+        <p>You're seeing Ghana. Add your email to open Kenya, Nigeria, Rwanda, Senegal, Côte d'Ivoire, Uganda and Tanzania, plus the entry rules for each.</p>
+        <form id="col-form" novalidate>
+          <label class="sr-only" for="col-name">First name</label>
+          <input type="text" id="col-name" name="name" placeholder="First name" autocomplete="given-name" maxlength="80">
+          <label class="sr-only" for="col-email">Email</label>
+          <input type="email" id="col-email" name="email" placeholder="Email address" autocomplete="email" required maxlength="200">
+          <button class="btn gold" type="submit" id="col-submit">Unlock the calculator</button>
+          <label class="consent"><input type="checkbox" id="col-consent" required> I agree to get emails from Move Back to Africa by Build With Ada. Unsubscribe any time.</label>
+          <p class="msg" id="col-msg" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top: 0;">
+  <div class="wrap">
+    <h2>The calm city costs about half</h2>
+    <p id="col-pairtxt"></p>
+    <div class="col-vs" id="col-vs"></div>
+    <div class="col-save" id="col-save"></div>
+  </div>
+</section>
+
+<section style="padding-top: 0;">
+  <div class="wrap">
+    <h2>All 16 cities, comfortable lifestyle</h2>
+    <p class="col-fine">Monthly, without school fees. Tap a city to open it above.</p>
+    <div class="col-rank" id="col-rank"></div>
+    <div class="col-key"><span><i style="background: var(--indigo);"></i>Capital</span><span><i style="background: var(--leaf);"></i>Calm city</span></div>
+  </div>
+</section>
+
+<section class="col-band">
+  <div class="wrap col-two">
+    <div class="col-cheque">
+      <h2>The first cheque is the shock</h2>
+      <p class="col-lab" id="col-chqlab"></p>
+      <div class="n" id="col-chq"></div>
+      <p id="col-chqtxt"></p>
+    </div>
+    <div>
+      <h2>Read before you plan</h2>
+      <p>Rent in Nigeria is quoted per year; figures here are the monthly share. Lagos adds agency, legal and service charges in year one.</p>
+      <p>School fees are annual tuition divided by 12, before registration and building levies that can reach $10,000 at top capital schools. Rubavu, Saly and Grand-Bassam have no full international school; families usually commute to or board in the capital.</p>
+      <p>Calm city prices rest on thinner data, so their ranges run wider on purpose. Health insurance and some eating out and household help figures are built up from national prices. Planning ranges, not quotes.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 id="col-rulesh">Getting in and staying</h2>
+    <p class="col-fine">Checked November 2026. Rules change often: confirm on the official site before you book or apply. Education, not legal advice.</p>
+    <div class="col-rules" id="col-rules"></div>
+  </div>
+</section>
+
+<section class="col-band">
+  <div class="wrap prose">
+    <h2>You have the numbers. Now get the plan.</h2>
+    <p>How to Move Back to Africa is the 29 page relocation workbook from Build With Ada: a 55 question readiness checklist, budget and income worksheets, a documents organiser, a trial stay plan and a first 90 days map.</p>
+    <p><a class="btn gold" href="{STAN}">Get the workbook, $37</a> <a class="btn secondary" href="quiz.html">Take the free readiness quiz</a></p>
+    <p class="col-fine">Sources: rent trackers and property listings (Accra.cool, Nigeria Property Centre, KigaliStays, The Africanvestor, Expat.com), international school fee schedules, Numbeo, CityCost, Livingcost and WageIndicator, 2025 to November 2026. Exchange rates: GHS 11.85, KES 129, NGN 1,580, RWF 1,475, XOF about 570, UGX about 3,600, TZS about 2,600 per US dollar. Read the full method in <a href="guides/how-much-does-it-cost-to-move-back-to-africa.html">How much does it really cost to move back to Africa?</a></p>
+  </div>
+</section>
+
+<script src="firebase-config.js"></script>
+<script type="module" src="cost-calculator.js"></script>

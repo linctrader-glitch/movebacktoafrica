@@ -34,7 +34,7 @@ src="https://www.facebook.com/tr?id=1704784206779963&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->"""
 
-NAV = [("index.html", "Home"), ("guides/index.html", "Guides"), ("quiz.html", "Readiness quiz"),
+NAV = [("index.html", "Home"), ("guides/index.html", "Guides"), ("quiz.html", "Readiness quiz"), ("cost-of-living-in-africa.html", "Cost calculator"),
        ("shop.html", "Shop"), ("about.html", "About Ada")]
 
 
@@ -153,6 +153,8 @@ def main():
     os.makedirs(OUT)
     shutil.copy(os.path.join(ROOT, "styles.css"), OUT)
     shutil.copy(os.path.join(ROOT, "quiz.js"), OUT)
+    for f in ("cost-calculator.js", "firebase-config.js"):
+        shutil.copy(os.path.join(ROOT, f), OUT)
     for f in ("favicon.svg", "favicon.ico", "apple-touch-icon.png", "icon-192.png", "icon-512.png"):
         shutil.copy(os.path.join(ROOT, f), OUT)
     with open(os.path.join(OUT, "site.webmanifest"), "w") as f:
@@ -182,6 +184,13 @@ def main():
     page("quiz.html", "Are You Ready to Move Back to Africa? Free Readiness Quiz",
          "Answer 11 quick questions and get your move-back readiness score, plus the areas to fix first.",
          read("quiz.html") + '<script src="quiz.js"></script>', "quiz.html")
+    page("cost-of-living-in-africa.html", "Cost of Living in Africa 2026: Free Calculator for 16 Cities | Move Back to Africa",
+         "What does it really cost to live in Africa? Compare monthly costs in 16 cities in Ghana, Kenya, Nigeria, Rwanda, Senegal, Cote d'Ivoire, Uganda and Tanzania, capital vs calm city.",
+         read("cost-calculator.html"), "cost-of-living-in-africa.html",
+         {"@context": "https://schema.org", "@type": "WebApplication", "name": "The Cost of Living in Africa calculator",
+          "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "url": DOMAIN + "/cost-of-living-in-africa.html",
+          "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+          "author": {"@type": "Person", "name": "Ada Eguzouwa"}})
     page("guides/index.html", "Guides for Moving Back to Africa | Move Back to Africa",
          "Free, honest guides for the African diaspora planning a move or investment back home.",
          read("guides.html"), "guides/index.html")
@@ -307,7 +316,7 @@ def main():
 
     with open(os.path.join(OUT, "robots.txt"), "w") as f:
         f.write(f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n")
-    urls = ["", "about.html", "shop.html", "quiz.html", "guides/index.html",
+    urls = ["", "about.html", "shop.html", "quiz.html", "cost-of-living-in-africa.html", "guides/index.html",
             "guides/moving-back-to-africa-checklist.html",
             "guides/how-much-does-it-cost-to-move-back-to-africa.html",
             "guides/are-you-ready-to-move-back-to-africa.html",
@@ -318,7 +327,7 @@ def main():
     with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
         f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
         for u in urls:
-            mod = "2026-11-24" if u in ("guides/index.html",) or u.startswith(("guides/how", "guides/are", "guides/where", "guides/moving-back-to-africa-questions", "guides/trust-family")) else "2026-11-22"
+            mod = "2026-11-25" if u == "cost-of-living-in-africa.html" else "2026-11-24" if u in ("guides/index.html",) or u.startswith(("guides/how", "guides/are", "guides/where", "guides/moving-back-to-africa-questions", "guides/trust-family")) else "2026-11-22"
             f.write(f"  <url><loc>{DOMAIN}/{u}</loc><lastmod>{mod}</lastmod></url>\n")
         f.write("</urlset>\n")
     with open(os.path.join(OUT, "CNAME"), "w") as f:
