@@ -288,6 +288,20 @@ def main():
                "Make the system the reason, not the person. Explain that you run every project the same way, paying suppliers directly and keeping paperwork in your name, and invite them to be your eyes on the ground. Agree the rules before any money moves."),
           ], "img/ada-laptop.jpg")
 
+    guide("how-will-i-earn-a-living-after-moving-back-to-africa.html",
+          "How Will I Earn a Living After I Move Back to Africa?",
+          "Six real ways to earn after moving back to Africa, how to build an AI team without hiring, the internet, power and payment setup you need, and how to test your income first.",
+          "article-earn.html", [
+              ("How can I earn money after moving back to Africa?",
+               "The most common ways are keeping your job remotely, selling digital products, offering digital marketing services, coaching or consulting in your profession, freelancing, and building content and community. Start with one or two."),
+              ("Should I move before I have income in Africa?",
+               "It is safer to have at least one income stream that already works from Africa before you buy a one-way ticket. Savings buy you time; income lets you stay."),
+              ("Can I work remotely from Africa?",
+               "Yes, if your work allows it. You need two internet connections, backup power, a payment setup that works in your country, agreed working hours across time zones, and advice on tax in both countries."),
+              ("How do I test my income before moving?",
+               "Start earning from where you live now, track real income for three months, then work from your chosen city during a trial stay of a few weeks to test internet, power and time zones."),
+          ], "img/woman-laptop-smiling.jpg")
+
     with open(os.path.join(OUT, "robots.txt"), "w") as f:
         f.write(f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n")
     urls = ["", "about.html", "shop.html", "quiz.html", "guides/index.html",
@@ -296,7 +310,8 @@ def main():
             "guides/are-you-ready-to-move-back-to-africa.html",
             "guides/where-should-i-move-in-africa.html",
             "guides/moving-back-to-africa-questions-2026.html",
-            "guides/trust-family-with-money-back-home.html"]
+            "guides/trust-family-with-money-back-home.html",
+            "guides/how-will-i-earn-a-living-after-moving-back-to-africa.html"]
     with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
         f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
         for u in urls:
