@@ -1,5 +1,13 @@
 (function () {
   var STAN = 'https://stan.store/buildwithada/p/how-to-move-back-to-africa';
+
+  // EMAIL GATE: where quiz-taker emails are sent.
+  // Paste your form endpoint here (MailerLite, Kit, Formspree, etc.).
+  // While it is empty, the gate still shows but nothing is sent anywhere.
+  var EMAIL_ENDPOINT = '';
+  // Field names your email tool expects. MailerLite uses 'fields[email]' and 'fields[name]'.
+  var FIELD_EMAIL = 'email';
+  var FIELD_NAME = 'name';
   var QUESTIONS = [
     { area: 'Mindset', text: "I don't see moving back as going backwards or as failure." },
     { area: 'Your why', text: 'I can say in one sentence why I\'m moving back, beyond "I\'m tired of it here".' },
@@ -76,6 +84,7 @@
       advice = 'Start with your mindset, your income and your safety net. Everything else depends on them.';
     }
 
+    showGate(pct, weak, function () {
     var html = '<p class="score">' + pct + '%</p><h2>' + verdict + '</h2><p>' + advice + '</p>';
     if (weak.length) {
       html += '<p><strong>Fix these first:</strong></p><ul>' + weak.map(function (w) { return '<li>' + w + '</li>'; }).join('') + '</ul>';
@@ -87,5 +96,67 @@
     result.classList.remove('hidden');
     result.focus();
     result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   });
+  var GATE_KEY = 'mbta_quiz_email';
+
+  function alreadyGiven() {
+    try { return !!window.localStorage.getItem(GATE_KEY); } catch (e) { return false; }
+  }
+  function remember(email) {
+    try { window.localStorage.setItem(GATE_KEY, email); } catch (e) {}
+  }
+
+  function showGate(pct, weak, reveal) {
+    if (alreadyGiven()) { reveal(); return; }
+    result.innerHTML =
+      '<h2>Your readiness score is ready.</h2>' +
+      '<p>Enter your email to see your score and the three areas to fix first. We\'ll also send you a short planning guide for each one.</p>' +
+      '<form class="gate" id="gate" novalidate>' +
+        '<label for="gate-name">First name</label>' +
+        '<input id="gate-name" name="name" type="text" autocomplete="given-name">' +
+        '<label for="gate-email">Email</label>' +
+        '<input id="gate-email" name="email" type="email" autocomplete="email" required>' +
+        '<p class="gate-error hidden" id="gate-error" role="alert"></p>' +
+        '<button class="btn gold" type="submit">Show my score</button>' +
+        '<p class="small">No spam. Unsubscribe any time.</p>' +
+      '</form>';
+    result.classList.remove('hidden');
+    result.focus();
+    result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    var gate = document.getElementById('gate');
+    var err = document.getElementById('gate-error');
+    gate.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = gate.querySelector('#gate-email').value.trim();
+      var name = gate.querySelector('#gate-name').value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        err.textContent = 'Please enter a valid email address.';
+        err.classList.remove('hidden');
+        return;
+      }
+      err.classList.add('hidden');
+      var btn = gate.querySelector('button');
+      btn.disabled = true;
+      btn.textContent = 'One moment…';
+      var done = false;
+      function finish() {
+        if (done) return;
+        done = true;
+        remember(email);
+        reveal();
+      }
+      if (!EMAIL_ENDPOINT) { finish(); return; }
+      var fd = new FormData();
+      fd.append(FIELD_EMAIL, email);
+      if (name) fd.append(FIELD_NAME, name);
+      fd.append('score', pct);
+      fd.append('fix_first', weak.join(', '));
+      fetch(EMAIL_ENDPOINT, { method: 'POST', body: fd, headers: { Accept: 'application/json' } })
+        .then(finish, finish);
+      // Never leave someone stuck if the email service is slow.
+      setTimeout(finish, 4000);
+    });
+  }
 })();

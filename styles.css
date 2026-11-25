@@ -258,3 +258,12 @@ section { padding: 72px 0; }
 .waitlist-card .wl-btn:hover { background: #FFE066; }
 .waitlist-card .wl-soon { opacity: .95; cursor: default; }
 .waitlist-card .wl-small { font-size: .85rem; color: #FFE9DF; margin: .9em 0 0; }
+
+/* Quiz email gate */
+.gate { max-width: 440px; margin-top: 16px; }
+.gate label { display: block; font-weight: 700; color: #fff; margin: 14px 0 6px; }
+.gate input { width: 100%; padding: 12px 14px; font-size: 1.05rem; border: 2px solid transparent; border-radius: var(--radius-s); }
+.gate input:focus { outline: 3px solid var(--gold); outline-offset: 1px; }
+.gate .btn { margin-top: 18px; }
+.gate .small { color: #C9CEE4; font-size: .9rem; margin-top: 10px; }
+.gate-error { color: #FFD7D2; font-weight: 700; margin: 10px 0 0; }
