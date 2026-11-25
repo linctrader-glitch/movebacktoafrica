@@ -307,3 +307,4 @@ section { padding: 72px 0; }
 .calc-bar i.calm { background: #C9A227; }
 .calc-save { font-size: .95rem; color: #2B2B2B; border-top: 1px solid #E7D9BD; padding-top: 12px; }
 .calc-save b { color: #4A0D0D; }
+#waitlist { scroll-margin-top: 90px; }
