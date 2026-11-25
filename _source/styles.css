@@ -243,3 +243,18 @@ section { padding: 72px 0; }
 .prose figure.inline.portrait img { aspect-ratio: 2 / 3; }
 .callout.green-note { background: #e7f1ea; border-left-color: #2E6B45; }
 .prose figure.inline.wide img { aspect-ratio: auto; }
+
+/* Bright waitlist card */
+.waitlist-card { margin: 2.4em 0 1.6em; padding: 30px 30px 26px; border-radius: 18px; color: #fff;
+  background: linear-gradient(135deg, #E8590C 0%, #D9480F 45%, #B8412E 100%);
+  box-shadow: 0 14px 34px rgba(184, 65, 46, .28); position: relative; overflow: hidden; }
+.waitlist-card:after { content: ""; position: absolute; right: -40px; top: -40px; width: 170px; height: 170px; border-radius: 50%; background: rgba(255, 213, 79, .28); }
+.waitlist-card .wl-kicker { text-transform: uppercase; letter-spacing: 2px; font-size: .78rem; font-weight: 800; color: #FFE08A; }
+.prose .waitlist-card h2 { color: #fff; margin: .3em 0 .1em; font-size: 2rem; line-height: 1.1; }
+.waitlist-card .wl-sub { font-weight: 700; color: #FFF3D6; margin: 0 0 .9em; }
+.prose .waitlist-card ul { padding-left: 1.2em; margin: 0 0 1.3em; }
+.waitlist-card li { margin-bottom: .35em; }
+.waitlist-card .wl-btn { display: inline-block; background: #FFD43B; color: #121B45; font-weight: 800; padding: 14px 24px; border-radius: 10px; text-decoration: none; font-size: 1.05rem; box-shadow: 0 4px 0 #C99700; position: relative; z-index: 1; }
+.waitlist-card .wl-btn:hover { background: #FFE066; }
+.waitlist-card .wl-soon { opacity: .95; cursor: default; }
+.waitlist-card .wl-small { font-size: .85rem; color: #FFE9DF; margin: .9em 0 0; }

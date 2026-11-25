@@ -142,8 +142,8 @@ def page(path, title, description, body, current=None, jsonld=None, image="img/c
 
 def read(name):
     with open(os.path.join(ROOT, "pages", name), encoding="utf-8") as f:
-        waitlist = (f'<a class="btn" href="{WAITLIST_URL}">Join the Training Waitlist</a>' if WAITLIST_URL
-                    else "<strong>The waitlist opens this week.</strong>")
+        waitlist = (f'<a class="wl-btn" href="{WAITLIST_URL}" target="_blank" rel="noopener">Join the Training Waitlist</a>' if WAITLIST_URL
+                    else '<span class="wl-btn wl-soon">Waitlist opens this week</span>')
         return f.read().replace("{STAN}", WORKBOOK).replace("{WAITLIST}", waitlist)
 
 
