@@ -303,7 +303,7 @@ def main():
                "Set aside moving costs and business money, then divide what is left by your monthly shortfall, which is your costs minus income you can count on. Decide in advance what you will do if you reach the halfway point and income is still below target."),
               ("How do I test a business idea in Africa before moving?",
                "Ask who will buy, at what price and how often. Find out what customers pay today, what it costs to serve them and who will manage the day-to-day work, and use a trial stay to meet customers and test the idea."),
-          ], "img/woman-laptop-smiling.jpg")
+          ], "img/training-audience.jpg")
 
     with open(os.path.join(OUT, "robots.txt"), "w") as f:
         f.write(f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n")
