@@ -142,8 +142,19 @@ def page(path, title, description, body, current=None, jsonld=None, image="img/c
 
 def read(name):
     with open(os.path.join(ROOT, "pages", name), encoding="utf-8") as f:
-        waitlist = (f'<a class="wl-btn" href="{WAITLIST_URL}" target="_blank" rel="noopener">Join the Training Waitlist</a>' if WAITLIST_URL
-                    else '<span class="wl-btn wl-soon">Waitlist opens this week</span>')
+        waitlist = """<form class="wl-form" id="wl-form" novalidate>
+      <div class="wl-fields">
+        <label class="sr-only" for="wl-name">First name</label>
+        <input type="text" id="wl-name" placeholder="First name" autocomplete="given-name" maxlength="80">
+        <label class="sr-only" for="wl-email">Email address</label>
+        <input type="email" id="wl-email" placeholder="Email address" autocomplete="email" required maxlength="200">
+      </div>
+      <label class="wl-consent"><input type="checkbox" id="wl-consent"> Yes, email me the training dates and updates from Ada. I can unsubscribe anytime.</label>
+      <button type="submit" class="wl-btn" id="wl-submit">Join the Training Waitlist</button>
+      <p class="wl-msg" id="wl-msg" role="status" aria-live="polite"></p>
+    </form>
+    <script src="../firebase-config.js"></script>
+    <script type="module" src="../waitlist.js"></script>"""
         return f.read().replace("{STAN}", WORKBOOK).replace("{WAITLIST}", waitlist)
 
 
@@ -153,7 +164,7 @@ def main():
     os.makedirs(OUT)
     shutil.copy(os.path.join(ROOT, "styles.css"), OUT)
     shutil.copy(os.path.join(ROOT, "quiz.js"), OUT)
-    for f in ("cost-calculator.js", "firebase-config.js"):
+    for f in ("cost-calculator.js", "firebase-config.js", "waitlist.js"):
         shutil.copy(os.path.join(ROOT, f), OUT)
     for f in ("favicon.svg", "favicon.ico", "apple-touch-icon.png", "icon-192.png", "icon-512.png"):
         shutil.copy(os.path.join(ROOT, f), OUT)

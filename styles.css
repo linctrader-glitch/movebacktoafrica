@@ -260,3 +260,16 @@ section { padding: 72px 0; }
 .waitlist-card .wl-small { font-size: .85rem; color: #FFE9DF; margin: .9em 0 0; }
 
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+.waitlist-card .wl-form { position: relative; z-index: 1; }
+.waitlist-card .wl-fields { display: grid; grid-template-columns: 1fr 1.4fr; gap: 10px; margin-bottom: 10px; }
+.waitlist-card input[type=text], .waitlist-card input[type=email] { width: 100%; padding: 13px 14px; border-radius: 10px; border: 2px solid transparent; font: inherit; font-size: 1rem; color: #121B45; background: #fff; }
+.waitlist-card input:focus { outline: none; border-color: #FFD43B; }
+.waitlist-card .wl-consent { display: flex; gap: 9px; align-items: flex-start; font-size: .88rem; color: #FFF3D6; margin: 0 0 14px; cursor: pointer; }
+.waitlist-card .wl-consent input { margin-top: 3px; width: 17px; height: 17px; accent-color: #FFD43B; flex: none; }
+.waitlist-card button.wl-btn { border: 0; cursor: pointer; font: inherit; font-weight: 800; }
+.waitlist-card button.wl-btn:disabled { opacity: .7; cursor: wait; }
+.waitlist-card .wl-msg { margin: .7em 0 0; font-weight: 700; color: #FFE08A; min-height: 1em; }
+.waitlist-card .wl-done { background: rgba(255,255,255,.16); border-radius: 12px; padding: 16px 18px; margin: 0; font-size: 1.05rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (max-width: 600px) { .waitlist-card .wl-fields { grid-template-columns: 1fr; } .waitlist-card { padding: 24px 20px; } }
