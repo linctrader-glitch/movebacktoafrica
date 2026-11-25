@@ -168,7 +168,7 @@ def main():
          "Planning to move back to Africa? Get the 2026 checklist, a free readiness quiz and a relocation workbook for the African diaspora, by Ada Eguzouwa.",
          read("home.html"), "index.html", [person, {"@context": "https://schema.org", "@type": "WebSite", "name": "Move Back to Africa", "url": DOMAIN}])
     page("about.html", "About Ada Eguzouwa | Move Back to Africa",
-         "Ada Eguzouwa is a nurse-turned-agripreneur, founder of Manna Farms and FarmLog, who helps the African diaspora plan their move back home.",
+         "Nurse. Farmer. Entrepreneur. Ada Eguzouwa, founder of Manna Farms and FarmLog, helps people reinvent themselves and build wealth in Africa with confidence.",
          read("about.html"), "about.html", person)
     page("shop.html", "Shop: Workbooks and Guides for the African Diaspora | Move Back to Africa",
          "How to Move Back to Africa, a $37 relocation planning workbook for the African diaspora by Ada Eguzouwa, plus guides coming soon.",
