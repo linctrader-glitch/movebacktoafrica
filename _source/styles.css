@@ -242,3 +242,4 @@ section { padding: 72px 0; }
 .prose figure.inline.portrait { max-width: 380px; }
 .prose figure.inline.portrait img { aspect-ratio: 2 / 3; }
 .callout.green-note { background: #e7f1ea; border-left-color: #2E6B45; }
+.prose figure.inline.wide img { aspect-ratio: auto; }
