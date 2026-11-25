@@ -1,5 +1,24 @@
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
-.col-hero { padding: 48px 0 8px; }
+/* Cost of Living page theme: maroon, gold and cream, as chosen by Ada */
+body { --indigo: #4A0D0D; --indigo-deep: #4A0D0D; --gold: #C9A227; --gold-soft: #F3E7CF; --mist: #FBF6EC; --line: #E7D9BD; --leaf: #1F4D3A; --ink: #2B2B2B; --muted: #6B5D4E; --red: #4A0D0D; background: #FBF6EC; }
+body h1, body h2, .col-big, .col-card .n, .col-cheque .n { font-family: "DM Serif Display", Georgia, serif !important; font-weight: 400 !important; letter-spacing: 0; }
+.col-hero { background: #4A0D0D; color: #FBF6EC; padding: 40px 0 96px; }
+.col-hero h1 { color: #FBF6EC; }
+.col-hero .lead { color: #EADBC2; }
+.col-mark { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; font-family: "DM Serif Display", Georgia, serif; font-size: 1.4rem; color: #FBF6EC; }
+.col-mark svg { width: 48px; height: 48px; flex: none; }
+.col-tool-wrap { margin-top: -48px; padding-top: 0 !important; position: relative; }
+.col-chip[aria-pressed="true"] small { color: #EADBC2; }
+.col-gate { background: #3A0A0A; }
+.col-gate p, .col-gate .consent { color: #EADBC2; }
+.col-save b { color: #E3C35A; }
+.col-rk.calm i { background: var(--gold); }
+.col-band { background: var(--gold-soft); }
+.site-header { background: #FBF6EC; }
+</style>
+<style>
+.col-hero { padding: 40px 0 96px; }
 .col-hero h1 { max-width: 20ch; }
 .col-tool { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-m); padding: clamp(18px, 3vw, 32px); box-shadow: 0 18px 40px -28px rgba(18, 27, 69, .45); }
 .col-lab { font-weight: 700; font-size: .95rem; color: var(--muted); margin: 0 0 8px; }
@@ -76,12 +95,13 @@
 
 <section class="col-hero">
   <div class="wrap">
+    <div class="col-mark"><svg viewBox="0 0 360 360" aria-hidden="true"><rect width="360" height="360" rx="64" fill="#C9A227"/><path d="M78 262C96 214 118 150 132 112C140 92 160 98 152 124C140 168 120 216 110 248C132 190 168 112 190 106C208 102 204 128 196 150C184 186 168 226 166 250C188 192 222 118 246 112C264 108 262 134 254 156C242 192 232 226 246 246C258 262 284 248 296 226" fill="none" stroke="#4A0D0D" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/><path d="M286 78 304 96 286 114 268 96Z" fill="#4A0D0D"/></svg>Build With Ada</div>
     <h1>The Cost of Living in Africa: free calculator</h1>
     <p class="lead" style="max-width: 60ch;">Real monthly costs in 16 cities across 8 countries: each capital, and the calmer city beside it. For the diaspora coming home, and for anyone coming to visit, retire or work. Researched November 2026, in US dollars.</p>
   </div>
 </section>
 
-<section style="padding-top: 24px;">
+<section class="col-tool-wrap">
   <div class="wrap">
     <div class="col-tool">
       <p class="col-lab">1. Pick a city</p>
@@ -131,7 +151,7 @@
     <h2>All 16 cities, comfortable lifestyle</h2>
     <p class="col-fine">Monthly, without school fees. Tap a city to open it above.</p>
     <div class="col-rank" id="col-rank"></div>
-    <div class="col-key"><span><i style="background: var(--indigo);"></i>Capital</span><span><i style="background: var(--leaf);"></i>Calm city</span></div>
+    <div class="col-key"><span><i style="background: var(--indigo);"></i>Capital</span><span><i style="background: var(--gold);"></i>Calm city</span></div>
   </div>
 </section>
 
