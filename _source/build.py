@@ -258,7 +258,7 @@ def main():
                "It is very risky. Without savings or income that continues after you move, any emergency can force you back abroad. Build an income that works from Africa and a 12-month safety net first."),
               ("Should I ship my things or buy them there?",
                "Get shipping quotes that include customs duty and clearing fees, then compare them with local prices. Many returnees find it is cheaper to ship only what matters most and buy the rest locally."),
-          ], "img/bridge-lean.jpg")
+          ], "img/empty-wallet.jpg")
     guide("are-you-ready-to-move-back-to-africa.html",
           "Are You Ready to Move Back to Africa? 10 Questions to Ask Yourself First",
           "Wanting to move back home is not the same as being ready. Answer these 10 honest questions before you book a one-way ticket to Africa.",
