@@ -34,6 +34,9 @@ src="https://www.facebook.com/tr?id=1704784206779963&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->"""
 
+import hashlib
+CSSV = hashlib.md5(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "styles.css"), "rb").read()).hexdigest()[:8]
+
 NAV = [("index.html", "Home"), ("guides/index.html", "Guides"), ("quiz.html", "Readiness quiz"), ("cost-of-living-in-africa.html", "Cost calculator"),
        ("shop.html", "Shop"), ("about.html", "About Ada")]
 
@@ -105,7 +108,7 @@ def page(path, title, description, body, current=None, jsonld=None, image="img/c
 <link rel="apple-touch-icon" href="{pre}apple-touch-icon.png">
 <link rel="manifest" href="{pre}site.webmanifest">
 <meta name="theme-color" content="#1D2B64">
-<link rel="stylesheet" href="{pre}styles.css">
+<link rel="stylesheet" href="{pre}styles.css?v={CSSV}">
 {ld}
 {PIXEL}
 </head>
