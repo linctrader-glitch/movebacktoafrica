@@ -6,6 +6,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(ROOT, "site")
 DOMAIN = "https://movebacktoafrica.com"
 STAN = "https://stan.store/buildwithada"
+WAITLIST_URL = ""  # Stan waitlist link for Earn in Dollars, Live in Africa
 WORKBOOK = "https://stan.store/buildwithada/p/how-to-move-back-to-africa"
 TIKTOK = "https://www.tiktok.com/@build.withada"
 INSTA = "https://www.instagram.com/build.withada/"
@@ -141,7 +142,9 @@ def page(path, title, description, body, current=None, jsonld=None, image="img/c
 
 def read(name):
     with open(os.path.join(ROOT, "pages", name), encoding="utf-8") as f:
-        return f.read().replace("{STAN}", WORKBOOK)
+        waitlist = (f'<a class="btn" href="{WAITLIST_URL}">Join the Training Waitlist</a>' if WAITLIST_URL
+                    else "<strong>The waitlist opens this week.</strong>")
+        return f.read().replace("{STAN}", WORKBOOK).replace("{WAITLIST}", waitlist)
 
 
 def main():
@@ -290,16 +293,16 @@ def main():
 
     guide("how-will-i-earn-a-living-after-moving-back-to-africa.html",
           "How Will I Earn a Living After I Move Back to Africa?",
-          "Six real ways to earn after moving back to Africa, how to build an AI team without hiring, the internet, power and payment setup you need, and how to test your income first.",
+          "A nurse-turned-farmer on earning a living after moving back to Africa: your cost of living, six ways to earn remotely, how long your savings last, and what to build long term.",
           "article-earn.html", [
               ("How can I earn money after moving back to Africa?",
-               "The most common ways are keeping your job remotely, selling digital products, offering digital marketing services, coaching or consulting in your profession, freelancing, and building content and community. Start with one or two."),
-              ("Should I move before I have income in Africa?",
-               "It is safer to have at least one income stream that already works from Africa before you buy a one-way ticket. Savings buy you time; income lets you stay."),
-              ("Can I work remotely from Africa?",
-               "Yes, if your work allows it. You need two internet connections, backup power, a payment setup that works in your country, agreed working hours across time zones, and advice on tax in both countries."),
-              ("How do I test my income before moving?",
-               "Start earning from where you live now, track real income for three months, then work from your chosen city during a trial stay of a few weeks to test internet, power and time zones."),
+               "Six common ways are keeping your current job remotely, applying for a remote role, freelancing for clients abroad, consulting in your field, teaching or training online, and creating a digital product. Choose one and test it while you are still abroad."),
+              ("How much income do I need before moving back to Africa?",
+               "Start with your monthly cost of living in the city you choose, including family commitments and any bills you will still pay abroad. That total is the income you need to cover."),
+              ("How long can I live on savings while I build a business back home?",
+               "Set aside moving costs and business money, then divide what is left by your monthly shortfall, which is your costs minus income you can count on. Decide in advance what you will do if you reach the halfway point and income is still below target."),
+              ("How do I test a business idea in Africa before moving?",
+               "Ask who will buy, at what price and how often. Find out what customers pay today, what it costs to serve them and who will manage the day-to-day work, and use a trial stay to meet customers and test the idea."),
           ], "img/woman-laptop-smiling.jpg")
 
     with open(os.path.join(OUT, "robots.txt"), "w") as f:
