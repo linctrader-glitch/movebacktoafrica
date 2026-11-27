@@ -198,7 +198,7 @@ def main():
     page("quiz.html", "Are You Ready to Move Back to Africa? Free Readiness Quiz",
          "Answer 11 quick questions and get your move-back readiness score, plus the areas to fix first.",
          read("quiz.html") + '<script src="quiz.js"></script>', "quiz.html")
-    page("cost-of-living-in-africa.html", "Cost of Living in Africa 2026: Free Calculator for 16 Cities | Move Back to Africa",
+    page("cost-of-living-in-africa.html", "Cost of Living in Africa 2026: Free Calculator for 17 Cities | Move Back to Africa",
          "What does it really cost to live in Africa? Compare monthly costs in 17 cities, including Zanzibar, in Ghana, Kenya, Nigeria, Rwanda, Senegal, Cote d'Ivoire, Uganda and Tanzania, capital vs calm city.",
          read("cost-calculator.html"), "cost-of-living-in-africa.html",
          {"@context": "https://schema.org", "@type": "WebApplication", "name": "The Cost of Living in Africa calculator",
