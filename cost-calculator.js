@@ -108,6 +108,9 @@ function draw() {
   $("col-chq").textContent = usd(rent * m);
   $("col-chqtxt").textContent = `About ${m} months of rent before you get the keys. ${UP[city][1]} The monthly number is kind. The first cheque is the one to plan for.`;
   $("col-rulesh").textContent = `Getting in and staying: ${c[1]}`;
+  $("col-note").textContent = c[1] === "Nigeria"
+    ? "Rent in Nigeria is quoted per year; figures here are the monthly share. Lagos adds agency, legal and service charges in year one."
+    : `All figures are monthly, in US dollars, for a two bedroom rental. See the first cheque for how much rent landlords in ${c[1]} usually want upfront.`;
   $("col-rules").innerHTML = R[c[1]].map((r, i) => `<details ${i === 0 ? "open" : ""}><summary>${r[0]}</summary><p>${r[1]}</p></details>`).join("");
 }
 
