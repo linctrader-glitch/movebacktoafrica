@@ -1,4 +1,6 @@
-// Cost of Living in Africa calculator. Jinja (Uganda) is free; the other 16 cities unlock after an email is saved to Firebase.
+// Cost of Living in Africa calculator: 2 taps (city, lifestyle), then a range and the email box.
+// Children are set after unlocking. Visitors see a range;
+// the exact number, breakdown and entry rules unlock after their email is saved to Firebase.
 const D = {"Accra":[[700,1300,2200],[350,600,1000],[200,350,700],[130,250,400],[100,300,600],[150,300,600],[100,200,380],[250,900,2200]],"Kumasi":[[150,300,500],[200,320,550],[30,70,200],[80,140,250],[80,200,450],[80,150,300],[60,110,250],[180,450,1200]],"Nairobi":[[550,900,1550],[300,450,700],[150,300,550],[120,180,275],[115,275,550],[150,300,600],[140,320,650],[350,1100,3100]],"Nakuru":[[230,300,465],[200,300,500],[40,70,200],[80,130,220],[90,200,450],[80,150,300],[140,200,450],[110,400,1100]],"Lagos":[[450,800,1600],[300,500,900],[120,300,600],[150,300,650],[30,120,400],[150,350,800],[75,200,450],[400,1200,2700]],"Port Harcourt":[[120,230,550],[280,420,750],[50,150,300],[70,150,350],[30,120,400],[80,160,350],[50,110,250],[80,100,160]],"Kigali":[[600,900,1800],[300,500,850],[60,150,450],[75,120,220],[200,450,800],[150,300,600],[100,200,450],[300,800,2200]],"Rubavu":[[200,350,700],[200,320,550],[30,70,250],[60,100,180],[150,400,800],[70,140,300],[60,110,250],[30,110,250]],"Dakar":[[500,1100,2500],[300,500,850],[100,250,500],[120,220,400],[150,350,700],[150,300,600],[150,250,450],[220,750,2200]],"Saly":[[300,500,1000],[200,320,550],[40,100,250],[80,140,250],[150,350,700],[70,140,300],[100,170,300],[100,250,750]],"Abidjan":[[450,1100,2200],[300,520,900],[100,250,500],[130,230,400],[150,350,700],[150,300,650],[100,200,400],[300,900,2300]],"Grand-Bassam":[[280,450,900],[220,350,600],[40,100,250],[90,160,280],[150,350,700],[80,150,300],[80,150,300],[150,400,1200]],"Kampala":[[450,900,1800],[250,400,700],[60,150,400],[80,130,220],[150,300,600],[100,200,450],[60,120,250],[150,450,1750]],"Jinja":[[150,300,600],[180,280,480],[30,70,200],[50,90,160],[120,250,500],[60,120,250],[50,90,180],[80,250,600]],"Dar es Salaam":[[500,1100,2300],[300,500,850],[100,250,500],[100,180,320],[150,350,700],[120,250,550],[80,150,300],[300,700,2200]],"Arusha":[[230,500,1000],[220,350,600],[40,120,300],[60,110,200],[150,350,700],[80,160,350],[70,130,250],[250,600,1400]],"Zanzibar":[[500,1000,1900],[300,500,850],[60,150,350],[100,180,330],[150,350,700],[100,250,550],[60,120,250],[250,870,1370]]};
 const C = [
   ["Accra", "Ghana", "the capital", 1], ["Kumasi", "Ghana", "the Garden City", 0],
@@ -11,7 +13,6 @@ const C = [
   ["Dar es Salaam", "Tanzania", "the commercial capital", 1], ["Arusha", "Tanzania", "the safari gateway", 0],
   ["Zanzibar", "Tanzania", "the Spice Island", 0]];
 const COUNTRIES = ["Ghana", "Kenya", "Nigeria", "Rwanda", "Senegal", "Côte d'Ivoire", "Uganda", "Tanzania"];
-const FREE = "Jinja";
 const CAT = ["Rent, 2 bedrooms", "Groceries", "Transport", "Power, water, wifi", "Health insurance", "Eating out", "Domestic help", "School fees"];
 const UP = [
   [12, "Accra landlords commonly ask 1 to 2 years upfront."], [12, "Ghanaian landlords often ask a year or more upfront; confirm locally."],
@@ -55,34 +56,39 @@ const $ = (id) => document.getElementById(id);
 const usd = (n) => "$" + Math.round(n).toLocaleString("en-US");
 const LV = ["careful", "comfortable", "generous"];
 const KEY = "mba-col-unlocked";
-let city = 13, lvl = 1, kids = 0, unlocked = false;
+let city = -1, lvl = 1, kids = 0, step = 1, unlocked = false;
 try { unlocked = localStorage.getItem(KEY) === "1"; } catch (e) {}
 
 const tot = (c, l, k) => D[C[c][0]].slice(0, 7).reduce((s, r) => s + r[l], 0) + D[C[c][0]][7][l] * k;
-const open = (i) => unlocked || C[i][0] === FREE;
+const track = (ev, p) => { try { if (window.fbq) window.fbq("trackCustom", ev, p || {}); } catch (e) {} };
 
-$("col-cities").innerHTML = COUNTRIES.map((n) => `<div class="col-ctry"><b>${n}</b>${C.map((x, i) => i).filter((i) => C[i][1] === n).map((i) => {
-  return `<button type="button" class="col-chip" data-c="${i}">${C[i][0]}<small>${C[i][2]}</small></button>`;
-}).join("")}</div>`).join("");
+// Step 1: one dropdown, cities grouped by country
+$("col-city").innerHTML = `<option value="">Choose a city…</option>` + COUNTRIES.map((n) => `<optgroup label="${n}">${C.map((x, i) => i).filter((i) => C[i][1] === n).map((i) => `<option value="${i}">${C[i][0]}, ${C[i][2]}</option>`).join("")}</optgroup>`).join("");
 
-function showGate(focus) {
-  const g = $("col-gate");
-  g.classList.remove("hidden");
-  if (focus) { g.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(() => $("col-email").focus({ preventScroll: true }), 400); }
+function go(n, quiet) {
+  step = n;
+  document.querySelectorAll(".col-pane").forEach((p) => p.classList.toggle("hidden", +p.dataset.step !== n));
+  $("col-steplab").textContent = n < 2 ? "2 quick taps" : "Your result";
+  document.querySelectorAll(".col-dots i").forEach((d, i) => d.classList.toggle("on", i < n));
+  if (n === 2) { draw(); track("CalculatorCompleted", { city: C[city][0] }); }
+  if (quiet) return;
+  const top = $("col-tool").getBoundingClientRect().top;
+  if (n === 2 || top < 0 || top > window.innerHeight * 0.6) $("col-tool").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function draw() {
-  document.querySelectorAll(".col-chip").forEach((b) => {
-    const i = +b.dataset.c;
-    b.setAttribute("aria-pressed", i === city);
-    b.classList.toggle("locked", !open(i));
-    b.setAttribute("aria-label", C[i][0] + (open(i) ? "" : ", locked: unlock free with your email"));
-  });
+  if (city < 0) return;
   document.querySelectorAll("#col-seg button").forEach((b) => b.setAttribute("aria-pressed", +b.dataset.l === lvl));
-  $("col-kids").textContent = kids;
-  $("col-gate").classList.toggle("hidden", unlocked);
+  document.querySelectorAll("#col-kidopts button").forEach((b) => b.setAttribute("aria-pressed", +b.dataset.k === kids));
   const t = tot(city, lvl, kids), c = C[city];
   $("col-where").textContent = `${c[0]}, ${c[1]} · ${LV[lvl]} life${kids ? ` · ${kids} in school` : ""}`;
+  $("col-peek").textContent = unlocked ? usd(t) : "$ ?";
+  $("col-locked").classList.toggle("hidden", unlocked);
+  $("col-full").classList.toggle("hidden", !unlocked);
+  document.querySelectorAll(".col-unlocked-only").forEach((el) => el.classList.toggle("hidden", !unlocked));
+  $("col-ready").textContent = `Your ${c[0]} cost estimate is ready`;
+  $("col-gatep").textContent = `Enter your email to see your ${LV[lvl]} monthly cost for ${c[0]}, the full breakdown and ${c[1]}'s entry rules. Free.`;
+  if (!unlocked) return;
   $("col-total").innerHTML = `${usd(t)}<small> / month</small>`;
   $("col-year").textContent = usd(t * 12);
   $("col-range").textContent = `${usd(tot(city, 0, kids))} to ${usd(tot(city, 2, kids))}`;
@@ -95,7 +101,7 @@ function draw() {
   $("col-vs").innerHTML = [cap, calm].map((i) => `<div class="col-card ${i === city ? "on" : ""}"><h3>${C[i][0]}</h3><div class="n">${usd(tot(i, lvl, kids))}</div><span class="col-fine">a month, ${C[i][2]}</span></div>`).join("");
   $("col-save").innerHTML = `${C[calm][0]} saves about <b>${usd(a - b)} a month</b>, or <b>${usd((a - b) * 12)} a year</b>: ${Math.round((a - b) / a * 100)}% less than ${C[cap][0]}. For retirement, the calm city is not the compromise. It is the strategy.`;
   const all = C.map((x, i) => [i, tot(i, 1, 0)]).sort((p, q) => q[1] - p[1]), m2 = all[0][1];
-  $("col-rank").innerHTML = all.map(([i, v]) => `<button type="button" class="col-rk ${C[i][3] ? "" : "calm"} ${i === city ? "sel" : ""} ${open(i) ? "" : "locked"}" data-c="${i}"><span>${C[i][0]}</span><i style="width:${v / m2 * 100}%"></i><span>${open(i) ? usd(v) : "Locked"}</span></button>`).join("");
+  $("col-rank").innerHTML = all.map(([i, v]) => `<button type="button" class="col-rk ${C[i][3] ? "" : "calm"} ${i === city ? "sel" : ""}" data-c="${i}"><span>${C[i][0]}</span><i style="width:${v / m2 * 100}%"></i><span>${usd(v)}</span></button>`).join("");
   const rent = D[c[0]][0][lvl], m = UP[city][0];
   $("col-chqlab").textContent = `Upfront rent in ${c[0]}, ${LV[lvl]} lifestyle`;
   $("col-chq").textContent = usd(rent * m);
@@ -104,19 +110,28 @@ function draw() {
   $("col-rules").innerHTML = R[c[1]].map((r, i) => `<details ${i === 0 ? "open" : ""}><summary>${r[0]}</summary><p>${r[1]}</p></details>`).join("");
 }
 
-document.addEventListener("click", (e) => {
-  const b = e.target.closest("[data-c],[data-l]");
-  if (!b) return;
-  if (b.dataset.c !== undefined) {
-    const i = +b.dataset.c;
-    if (!open(i)) { showGate(true); return; }
-    city = i;
-    if (b.classList.contains("col-rk")) document.querySelector(".col-tool").scrollIntoView({ behavior: "smooth" });
-  } else lvl = +b.dataset.l;
-  draw();
+$("col-city").addEventListener("change", (e) => {
+  city = e.target.value === "" ? -1 : +e.target.value;
+  $("col-hint").textContent = city < 0 ? "" : "Now tap how you want to live.";
 });
-$("col-minus").onclick = () => { kids = Math.max(0, kids - 1); draw(); };
-$("col-plus").onclick = () => { kids = Math.min(5, kids + 1); draw(); };
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-l],[data-k],[data-back],[data-c]");
+  if (!b) return;
+  if (b.dataset.l !== undefined) {
+    lvl = +b.dataset.l;
+    if (city < 0) { draw0(); $("col-hint").textContent = "First, choose a city above."; $("col-city").focus(); return; }
+    go(2);
+  }
+  else if (b.dataset.k !== undefined) { kids = +b.dataset.k; draw(); }
+  else if (b.dataset.back !== undefined) go(1);
+  else if (b.dataset.c !== undefined) { city = +b.dataset.c; $("col-city").value = city; go(2); }
+});
+function draw0() { document.querySelectorAll("#col-seg button").forEach((x) => x.setAttribute("aria-pressed", +x.dataset.l === lvl)); }
+// Tell Meta when someone clicks a workbook button here, and which one.
+document.querySelectorAll("a[data-workbook]").forEach((a) => a.addEventListener("click", () => {
+  track("WorkbookClick", { from: "cost-calculator", button: a.dataset.workbook, city: city >= 0 ? C[city][0] : "none", unlocked: unlocked });
+}));
+$("col-again").onclick = () => { $("col-city").value = ""; city = -1; $("col-hint").textContent = ""; go(1); $("col-city").focus({ preventScroll: true }); };
 
 async function saveLead(name, email) {
   const cfg = window.MBA_FIREBASE;
@@ -151,13 +166,13 @@ async function saveLead(name, email) {
 
 $("col-form").addEventListener("submit", async (e) => {
   e.preventDefault();
-  const name = $("col-name").value.trim(), email = $("col-email").value.trim(), msg = $("col-msg");
+  const email = $("col-email").value.trim(), msg = $("col-msg");
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { msg.textContent = "Please enter a valid email address."; $("col-email").focus(); return; }
   if (!$("col-consent").checked) { msg.textContent = "Please tick the box so we can email you."; return; }
   const btn = $("col-submit");
   btn.disabled = true; msg.textContent = "Unlocking...";
   try {
-    await saveLead(name, email);
+    await saveLead("", email);
   } catch (err) {
     console.error(err);
     msg.textContent = "Something went wrong saving your email. Please try again.";
@@ -168,7 +183,7 @@ $("col-form").addEventListener("submit", async (e) => {
   try { localStorage.setItem(KEY, "1"); } catch (e2) {}
   if (window.fbq) window.fbq("track", "Lead", { content_name: "Cost of Living calculator" });
   draw();
-  document.querySelector(".col-tool").scrollIntoView({ behavior: "smooth" });
+  $("col-tool").scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
-draw();
+go(1, true);

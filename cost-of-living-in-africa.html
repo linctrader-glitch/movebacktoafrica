@@ -135,16 +135,47 @@ body h1, body h2, .col-big, .col-card .n, .col-cheque .n { font-family: "DM Seri
 .col-gate .msg { grid-column: 1 / -1; min-height: 1.4em; margin: 0; font-size: .95rem; }
 .col-gate .btn { min-height: 50px; }
 .col-fine { font-size: .9rem; color: var(--muted); }
+/* 3-step quiz */
+.col-hero .lead { max-width: 46ch; }
+.col-prog { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+.col-steplab { font-weight: 700; font-size: .9rem; color: var(--muted); }
+.col-dots { display: flex; gap: 6px; }
+.col-dots i { width: 28px; height: 6px; border-radius: 3px; background: var(--line); }
+.col-dots i.on { background: var(--gold); }
+.col-peek { margin-left: auto; font-size: .85rem; color: var(--muted); background: var(--mist); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; }
+.col-peek b { color: var(--indigo-deep); font-size: 1rem; margin-left: 4px; }
+.col-q { margin: 0 0 16px; font-size: clamp(1.5rem, 5vw, 2rem); }
+.col-select { width: 100%; min-height: 56px; border-radius: var(--radius-s); border: 2px solid var(--gold); background: #fff; color: var(--ink); font: 700 1.1rem var(--body); padding: 0 14px; }
+.col-num { display: inline-grid; place-items: center; width: 1.6em; height: 1.6em; margin-right: 6px; border-radius: 50%; background: var(--gold); color: var(--indigo-deep); font: 700 .8em var(--body); vertical-align: .1em; }
+.col-q2 { margin-top: 22px; }
+.col-hint { min-height: 1.3em; margin: 10px 0 0; font-weight: 700; color: var(--indigo-deep); }
+.col-kidlab { margin: 16px 0 8px; }
+.col-kidlab + .col-opts-row button { min-height: 48px; font-size: 1rem; }
+.col-opts { display: grid; gap: 10px; }
+.col-opts button { min-height: 64px; border-radius: var(--radius-s); border: 1px solid var(--line); background: var(--mist); color: var(--ink); font: 700 1.1rem var(--body); text-align: left; padding: 10px 16px; cursor: pointer; }
+.col-opts button small { display: block; font-weight: 400; font-size: .9rem; color: var(--muted); margin-top: 2px; }
+.col-opts button[aria-pressed="true"], .col-opts button:hover { border-color: var(--gold); background: var(--gold-soft); }
+.col-opts-row { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.col-opts-row button { text-align: center; }
+.col-back { margin-top: 16px; border: 0; background: none; color: var(--muted); font: 700 1rem var(--body); padding: 8px 0; cursor: pointer; text-decoration: underline; }
+.col-teaser-lab { margin: 0 0 4px; font-weight: 700; color: var(--ink); }
+.col-trange { font-size: clamp(2.4rem, 9vw, 4rem); white-space: normal; }
+.col-privacy { grid-column: 1 / -1; margin: 0; font-size: .85rem; }
+.col-gate form { grid-template-columns: minmax(0, 1.6fr) auto; }
+.col-gate p.col-privacy { color: var(--gold-soft); opacity: .85; }
+.col-res { margin-top: 6px; }
+.col-two:has(.col-cheque.hidden) { grid-template-columns: minmax(0, 1fr); }
+.col-tool .hidden, .col-unlocked-only.hidden { display: none !important; }
 @media (max-width: 860px) {
+  .col-hero { padding: 18px 0 64px; }
+  .col-hero .col-mark { margin-bottom: 8px; font-size: 1.1rem; }
+  .col-hero h1 { font-size: 2rem; margin-bottom: 8px; }
+  .col-hero .lead { font-size: 1.05rem; margin: 0; }
+  .col-prog { margin-bottom: 12px; }
+  .col-peek { margin-left: 0; }
   .col-countries { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .col-res, .col-two { grid-template-columns: minmax(0, 1fr); }
   .col-gate form { grid-template-columns: minmax(0, 1fr); }
-  /* Phones: number, workbook offer, then the unlock form, then the cost bars */
-  .col-tool { display: flex; flex-direction: column; }
-  .col-res { display: contents; }
-  .col-res > div:first-child { border-top: 1px solid var(--line); padding-top: 22px; }
-  .col-gate { order: 1; }
-  .col-bars { order: 2; margin-top: 22px; }
 }
 @media (max-width: 420px) {
   .col-bar { grid-template-columns: minmax(0, 7.5em) minmax(0, 1fr) 4.2em; font-size: .92rem; }
@@ -158,48 +189,76 @@ body h1, body h2, .col-big, .col-card .n, .col-cheque .n { font-family: "DM Seri
   <div class="wrap">
     <div class="col-mark">Build With Ada</div>
     <h1>The Cost of Living in Africa: free calculator</h1>
-    <p class="lead" style="max-width: 60ch;">Real monthly costs in 17 cities across 8 countries: each capital, the calmer city beside it, and Zanzibar. For the diaspora coming home, and for anyone coming to visit, retire or work. Researched November 2026, in US dollars.</p>
+    <p class="lead">2 quick taps. Real 2026 costs for 17 African cities, in US dollars.</p>
   </div>
 </section>
 
 <section class="col-tool-wrap">
   <div class="wrap">
-    <div class="col-tool">
-      <p class="col-lab">1. Pick a city</p>
-      <div class="col-countries" id="col-cities"></div>
-      <div class="col-row">
-        <div><p class="col-lab">2. Your lifestyle</p><div class="col-seg" id="col-seg"><button type="button" data-l="0">Careful</button><button type="button" data-l="1">Comfortable</button><button type="button" data-l="2">Generous</button></div></div>
-        <div><p class="col-lab">3. Children in school</p><div class="col-step"><button type="button" id="col-minus" aria-label="Fewer children">&minus;</button><output id="col-kids">0</output><button type="button" id="col-plus" aria-label="More children">+</button></div></div>
-      </div>
-      <div class="col-res">
-        <div>
-          <p class="col-lab" id="col-where"></p>
-          <div class="col-big" id="col-total"></div>
-          <div class="col-sub"><span>Per year <b id="col-year"></b></span><span>Range <b id="col-range"></b></span></div>
-          <p class="col-upsell"><a href="https://stan.store/buildwithada/p/how-to-move-back-to-africa">Go from &ldquo;someday&rdquo; to a date on the calendar. The step-by-step relocation workbook, $37 &rarr;</a></p>
-          <p class="col-fine" id="col-blurb" style="margin-top: 14px;"></p>
-        </div>
-        <div class="col-bars" id="col-bars"></div>
+    <div class="col-tool" id="col-tool">
+      <div class="col-prog">
+        <span class="col-steplab" id="col-steplab">2 quick taps</span>
+        <span class="col-dots" aria-hidden="true"><i></i><i></i></span>
+        <span class="col-peek">Your monthly cost <b id="col-peek">$ ?</b></span>
       </div>
 
-      <div class="col-gate" id="col-gate">
-        <h2>Unlock all 17 cities, free</h2>
-        <p>You're seeing Jinja, Uganda. Add your email to open all 17 cities, including Accra, Lagos, Nairobi, Kigali and Zanzibar, plus the entry rules for each country.</p>
-        <form id="col-form" novalidate>
-          <label class="sr-only" for="col-name">First name</label>
-          <input type="text" id="col-name" name="name" placeholder="First name" autocomplete="given-name" maxlength="80">
-          <label class="sr-only" for="col-email">Email</label>
-          <input type="email" id="col-email" name="email" placeholder="Email address" autocomplete="email" required maxlength="200">
-          <button class="btn gold" type="submit" id="col-submit">Unlock the calculator</button>
-          <label class="consent"><input type="checkbox" id="col-consent" required> I agree to get emails from Move Back to Africa by Build With Ada. Unsubscribe any time.</label>
-          <p class="msg" id="col-msg" role="status" aria-live="polite"></p>
-        </form>
+      <div class="col-pane" data-step="1">
+        <h2 class="col-q"><span class="col-num">1</span> Where are you thinking of living?</h2>
+        <label class="sr-only" for="col-city">City</label>
+        <select id="col-city" class="col-select"></select>
+        <h2 class="col-q col-q2"><span class="col-num">2</span> How do you want to live?</h2>
+        <div class="col-opts" id="col-seg">
+          <button type="button" data-l="0">Careful<small>Simple, local style</small></button>
+          <button type="button" data-l="1">Comfortable<small>What most returnees choose</small></button>
+          <button type="button" data-l="2">Generous<small>Expat areas, a car, more help</small></button>
+        </div>
+        <p class="col-hint" id="col-hint" role="status" aria-live="polite"></p>
+      </div>
+
+      <div class="col-pane hidden" data-step="2">
+        <p class="col-lab" id="col-where"></p>
+
+        <div id="col-locked">
+          <p class="col-teaser-lab" id="col-ready"></p>
+          <div class="col-big col-trange" aria-hidden="true">$ ? <small>/ month</small></div>
+          <div class="col-gate" id="col-gate">
+            <h2 id="col-gateh">See your number</h2>
+            <p id="col-gatep"></p>
+            <form id="col-form" novalidate>
+              <label class="sr-only" for="col-email">Email</label>
+              <input type="email" id="col-email" name="email" placeholder="Your email address" autocomplete="email" inputmode="email" required maxlength="200">
+              <button class="btn gold" type="submit" id="col-submit">Unlock my numbers</button>
+              <label class="consent"><input type="checkbox" id="col-consent" required> I agree to get emails from Move Back to Africa by Build With Ada. Unsubscribe any time.</label>
+              <p class="col-privacy">We never share your email.</p>
+              <p class="msg" id="col-msg" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
+
+        <div class="col-res hidden" id="col-full">
+          <div>
+            <div class="col-big" id="col-total"></div>
+            <div class="col-sub"><span>Per year <b id="col-year"></b></span><span>Range <b id="col-range"></b></span></div>
+            <p class="col-lab col-kidlab">Children in international school?</p>
+            <div class="col-opts col-opts-row" id="col-kidopts">
+              <button type="button" data-k="0">None</button>
+              <button type="button" data-k="1">1</button>
+              <button type="button" data-k="2">2</button>
+              <button type="button" data-k="3">3+</button>
+            </div>
+            <p class="col-upsell"><a href="https://stan.store/buildwithada/p/how-to-move-back-to-africa" data-workbook="under-number">Go from &ldquo;someday&rdquo; to a date on the calendar. The step-by-step relocation workbook, $37 &rarr;</a></p>
+            <p class="col-fine" id="col-blurb" style="margin-top: 14px;"></p>
+          </div>
+          <div class="col-bars" id="col-bars"></div>
+        </div>
+
+        <button type="button" class="col-back" id="col-again">&larr; Try another city</button>
       </div>
     </div>
   </div>
 </section>
 
-<section style="padding-top: 0;">
+<section class="col-unlocked-only hidden" style="padding-top: 0;">
   <div class="wrap">
     <h2>The calm city costs about half</h2>
     <p id="col-pairtxt"></p>
@@ -208,10 +267,10 @@ body h1, body h2, .col-big, .col-card .n, .col-cheque .n { font-family: "DM Seri
   </div>
 </section>
 
-<section style="padding-top: 0;">
+<section class="col-unlocked-only hidden" style="padding-top: 0;">
   <div class="wrap">
     <h2>All 17 cities, comfortable lifestyle</h2>
-    <p class="col-fine">Monthly, without school fees. Tap a city to open it above.</p>
+    <p class="col-fine">Monthly, without school fees. Tap a city to see it above.</p>
     <div class="col-rank" id="col-rank"></div>
     <div class="col-key"><span><i style="background: var(--indigo);"></i>Capital</span><span><i style="background: var(--gold);"></i>Calm city</span></div>
   </div>
@@ -219,7 +278,7 @@ body h1, body h2, .col-big, .col-card .n, .col-cheque .n { font-family: "DM Seri
 
 <section class="col-band">
   <div class="wrap col-two">
-    <div class="col-cheque">
+    <div class="col-cheque col-unlocked-only hidden">
       <h2>The first cheque is the shock</h2>
       <p class="col-lab" id="col-chqlab"></p>
       <div class="n" id="col-chq"></div>
@@ -234,7 +293,7 @@ body h1, body h2, .col-big, .col-card .n, .col-cheque .n { font-family: "DM Seri
   </div>
 </section>
 
-<section>
+<section class="col-unlocked-only hidden">
   <div class="wrap">
     <h2 id="col-rulesh">Getting in and staying</h2>
     <p class="col-fine">Checked November 2026. Rules change often: confirm on the official site before you book or apply. Education, not legal advice.</p>
@@ -246,7 +305,7 @@ body h1, body h2, .col-big, .col-card .n, .col-cheque .n { font-family: "DM Seri
   <div class="wrap prose">
     <h2>You have the numbers. Now get the plan.</h2>
     <p>How to Move Back to Africa is the 29 page relocation workbook from Build With Ada: a 55 question readiness checklist, budget and income worksheets, a documents organiser, a trial stay plan and a first 90 days map.</p>
-    <p><a class="btn gold" href="https://stan.store/buildwithada/p/how-to-move-back-to-africa">Get the workbook, $37</a> <a class="btn secondary" href="quiz.html">Take the free readiness quiz</a></p>
+    <p><a class="btn gold" href="https://stan.store/buildwithada/p/how-to-move-back-to-africa" data-workbook="bottom-of-page">Get the workbook, $37</a> <a class="btn secondary" href="quiz.html">Take the free readiness quiz</a></p>
     <p class="col-fine">Sources: rent trackers and property listings (Accra.cool, Nigeria Property Centre, KigaliStays, The Africanvestor, Expat.com, Coldwell Banker Tanzania for Zanzibar), international school fee schedules, Numbeo, CityCost, Livingcost and WageIndicator, 2025 to November 2026. Exchange rates: GHS 11.85, KES 129, NGN 1,580, RWF 1,475, XOF about 570, UGX about 3,600, TZS about 2,600 per US dollar. Read the full method in <a href="guides/how-much-does-it-cost-to-move-back-to-africa.html">How much does it really cost to move back to Africa?</a></p>
   </div>
 </section>
