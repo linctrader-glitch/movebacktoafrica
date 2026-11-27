@@ -65,7 +65,7 @@ body h1, body h2, .col-big, .col-card .n, .col-cheque .n { font-family: "DM Seri
 .col-chip[aria-pressed="true"] small { color: #EADBC2; }
 .col-gate { background: #3A0A0A; }
 .col-gate p, .col-gate .consent { color: #EADBC2; }
-.col-save b { color: #E3C35A; }
+
 .col-rk.calm i { background: var(--gold); }
 .col-band { background: var(--gold-soft); }
 .site-header { background: #FBF6EC; }
@@ -100,17 +100,15 @@ body h1, body h2, .col-big, .col-card .n, .col-cheque .n { font-family: "DM Seri
 .col-bar i { display: block; height: 14px; border-radius: 7px; background: var(--indigo); transition: width .4s; }
 .col-bar i.rent { background: var(--gold); }
 .col-bar span:last-child { text-align: right; font-weight: 700; white-space: nowrap; }
-.col-vs { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; margin-top: 14px; }
-.col-card { border-radius: var(--radius-m); padding: 18px; background: var(--mist); }
-.col-card.on { outline: 2px solid var(--gold); }
-.col-card h3 { margin: 0 0 2px; font-size: 1.1rem; }
-.col-card .n { font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 5vw, 2.6rem); color: var(--indigo-deep); }
-.col-save { margin-top: 14px; padding: 16px 20px; border-radius: var(--radius-m); background: var(--indigo); color: #fff; }
-.col-save b { color: var(--gold); }
+.col-vs { display: grid; gap: 8px; margin-top: 12px; }
+.col-vs .col-rk { cursor: default; }
+.col-vs .col-rk.calm i { background: var(--gold); }
+.col-save { margin-top: 14px; color: var(--ink); }
+.col-save b { color: var(--indigo-deep); }
 .col-rank { display: grid; gap: 8px; margin-top: 12px; }
 .col-rk { display: grid; grid-template-columns: minmax(0, 9em) minmax(0, 1fr) 5em; gap: 10px; align-items: center; min-height: 34px; border: 0; background: none; color: var(--ink); font: 1rem var(--body); text-align: left; padding: 0; cursor: pointer; }
 .col-rk i { display: block; height: 20px; border-radius: 5px; background: var(--indigo); }
-.col-rk.calm i { background: var(--leaf); }
+.col-rk.calm i { background: var(--gold); }
 .col-rk.locked { color: var(--muted); }
 .col-rk.locked i { opacity: .25; }
 .col-rk.sel { font-weight: 700; }
@@ -179,7 +177,6 @@ body h1, body h2, .col-big, .col-card .n, .col-cheque .n { font-family: "DM Seri
 }
 @media (max-width: 420px) {
   .col-bar { grid-template-columns: minmax(0, 7.5em) minmax(0, 1fr) 4.2em; font-size: .92rem; }
-  .col-vs { grid-template-columns: minmax(0, 1fr); }
   .col-rk { grid-template-columns: minmax(0, 7.5em) minmax(0, 1fr) 4.6em; font-size: .95rem; }
 }
 @media (prefers-reduced-motion: reduce) { .col-bar i { transition: none; } }
@@ -267,6 +264,14 @@ body h1, body h2, .col-big, .col-card .n, .col-cheque .n { font-family: "DM Seri
   </div>
 </section>
 
+<section class="col-band col-unlocked-only hidden">
+  <div class="wrap prose">
+    <h2>You have the numbers. Now get the plan.</h2>
+    <p>How to Move Back to Africa is the 29 page relocation workbook from Build With Ada: a 55 question readiness checklist, budget and income worksheets, a documents organiser, a trial stay plan and a first 90 days map.</p>
+    <p><a class="btn gold" href="https://stan.store/buildwithada/p/how-to-move-back-to-africa" data-workbook="bottom-of-page">Get the workbook, $37</a> <a class="btn secondary" href="quiz.html">Take the free readiness quiz</a></p>
+  </div>
+</section>
+
 <section class="col-unlocked-only hidden" style="padding-top: 0;">
   <div class="wrap">
     <h2>All 17 cities, comfortable lifestyle</h2>
@@ -301,17 +306,14 @@ body h1, body h2, .col-big, .col-card .n, .col-cheque .n { font-family: "DM Seri
   </div>
 </section>
 
-<section class="col-band">
+<section style="padding-top: 0;">
   <div class="wrap prose">
-    <h2>You have the numbers. Now get the plan.</h2>
-    <p>How to Move Back to Africa is the 29 page relocation workbook from Build With Ada: a 55 question readiness checklist, budget and income worksheets, a documents organiser, a trial stay plan and a first 90 days map.</p>
-    <p><a class="btn gold" href="https://stan.store/buildwithada/p/how-to-move-back-to-africa" data-workbook="bottom-of-page">Get the workbook, $37</a> <a class="btn secondary" href="quiz.html">Take the free readiness quiz</a></p>
     <p class="col-fine">Sources: rent trackers and property listings (Accra.cool, Nigeria Property Centre, KigaliStays, The Africanvestor, Expat.com, Coldwell Banker Tanzania for Zanzibar), international school fee schedules, Numbeo, CityCost, Livingcost and WageIndicator, 2025 to November 2026. Exchange rates: GHS 11.85, KES 129, NGN 1,580, RWF 1,475, XOF about 570, UGX about 3,600, TZS about 2,600 per US dollar. Read the full method in <a href="guides/how-much-does-it-cost-to-move-back-to-africa.html">How much does it really cost to move back to Africa?</a></p>
   </div>
 </section>
 
 <script src="firebase-config.js"></script>
-<script type="module" src="cost-calculator.js?v=20261127b"></script>
+<script type="module" src="cost-calculator.js?v=20261127c"></script>
 
 </main>
 <footer class="site-footer">

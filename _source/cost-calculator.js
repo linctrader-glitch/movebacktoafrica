@@ -98,7 +98,8 @@ function draw() {
   $("col-bars").innerHTML = rows.map((r, i) => `<div class="col-bar"><span>${r[0]}</span><i class="${i === 0 ? "rent" : ""}" style="width:${Math.max(2, r[1] / mx * 100)}%"></i><span>${usd(r[1])}</span></div>`).join("");
   const cap = C.findIndex((x) => x[1] === c[1] && x[3]), calm = C[city][3] ? C.findIndex((x) => x[1] === c[1] && !x[3]) : city, a = tot(cap, lvl, kids), b = tot(calm, lvl, kids);
   $("col-pairtxt").textContent = `Same country, a slower pace. Here is ${C[cap][0]} against ${C[calm][0]} for the same lifestyle.`;
-  $("col-vs").innerHTML = [cap, calm].map((i) => `<div class="col-card ${i === city ? "on" : ""}"><h3>${C[i][0]}</h3><div class="n">${usd(tot(i, lvl, kids))}</div><span class="col-fine">a month, ${C[i][2]}</span></div>`).join("");
+  const mxp = Math.max(a, b, 1);
+  $("col-vs").innerHTML = [cap, calm].map((i) => `<div class="col-rk ${C[i][3] ? "" : "calm"} ${i === city ? "sel" : ""}"><span>${C[i][0]}</span><i style="width:${tot(i, lvl, kids) / mxp * 100}%"></i><span>${usd(tot(i, lvl, kids))}</span></div>`).join("");
   $("col-save").innerHTML = `${C[calm][0]} saves about <b>${usd(a - b)} a month</b>, or <b>${usd((a - b) * 12)} a year</b>: ${Math.round((a - b) / a * 100)}% less than ${C[cap][0]}. For retirement, the calm city is not the compromise. It is the strategy.`;
   const all = C.map((x, i) => [i, tot(i, 1, 0)]).sort((p, q) => q[1] - p[1]), m2 = all[0][1];
   $("col-rank").innerHTML = all.map(([i, v]) => `<button type="button" class="col-rk ${C[i][3] ? "" : "calm"} ${i === city ? "sel" : ""}" data-c="${i}"><span>${C[i][0]}</span><i style="width:${v / m2 * 100}%"></i><span>${usd(v)}</span></button>`).join("");
