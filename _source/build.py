@@ -199,7 +199,7 @@ def main():
          "Answer 11 quick questions and get your move-back readiness score, plus the areas to fix first.",
          read("quiz.html") + '<script src="quiz.js"></script>', "quiz.html")
     page("cost-of-living-in-africa.html", "Cost of Living in Africa 2026: Free Calculator for 16 Cities | Move Back to Africa",
-         "What does it really cost to live in Africa? Compare monthly costs in 16 cities in Ghana, Kenya, Nigeria, Rwanda, Senegal, Cote d'Ivoire, Uganda and Tanzania, capital vs calm city.",
+         "What does it really cost to live in Africa? Compare monthly costs in 17 cities, including Zanzibar, in Ghana, Kenya, Nigeria, Rwanda, Senegal, Cote d'Ivoire, Uganda and Tanzania, capital vs calm city.",
          read("cost-calculator.html"), "cost-of-living-in-africa.html",
          {"@context": "https://schema.org", "@type": "WebApplication", "name": "The Cost of Living in Africa calculator",
           "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "url": DOMAIN + "/cost-of-living-in-africa.html",
@@ -341,7 +341,7 @@ def main():
     with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
         f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
         for u in urls:
-            mod = "2026-11-25" if u == "cost-of-living-in-africa.html" else "2026-11-24" if u in ("guides/index.html",) or u.startswith(("guides/how", "guides/are", "guides/where", "guides/moving-back-to-africa-questions", "guides/trust-family")) else "2026-11-22"
+            mod = "2026-11-27" if u == "cost-of-living-in-africa.html" else "2026-11-24" if u in ("guides/index.html",) or u.startswith(("guides/how", "guides/are", "guides/where", "guides/moving-back-to-africa-questions", "guides/trust-family")) else "2026-11-22"
             f.write(f"  <url><loc>{DOMAIN}/{u}</loc><lastmod>{mod}</lastmod></url>\n")
         f.write("</urlset>\n")
     with open(os.path.join(OUT, "CNAME"), "w") as f:
